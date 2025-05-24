@@ -42,6 +42,13 @@ class UserController extends Controller
         return view('user/isiberita', compact('berita'));
     }
 
+    public function komoditas_kecamatan()
+    {
+        $kecamatan = DB::select('CALL viewAll_kecamatan()');
+
+        return view('user.komoditas_kecamatan', compact('kecamatan'));
+    }
+
     public function getKomoditasByKecamatan(Request $request, $id)
     {
         $perPage = 6; // Jumlah item per halaman
@@ -54,100 +61,72 @@ class UserController extends Controller
         }
 
         // Konversi array hasil query menjadi Laravel paginator secara manual
-        $komoditasPaginated = new LengthAwarePaginator(
-            array_slice($komoditas, ($page - 1) * $perPage, $perPage), // Data sesuai halaman
-            count($komoditas), // Total jumlah data
-            $perPage,
-            $page,
-            ['path' => url()->current()] // URL dasar untuk pagination
-        );
-
-        return response()->json($komoditasPaginated);
-    }
-
-    public function komoditas_kecamatan()
-    {
-        $kecamatan = DB::select('CALL viewAll_kecamatan()');
-
-        // Ambil data awal dengan pagination
-        $komoditasRaw = DB::select('CALL viewAll_komoditasKecamatan()');
-        $perPage = 6;
-        $page = request()->query('page', 1);
-        $komoditas = new LengthAwarePaginator(
-            array_slice($komoditasRaw, ($page - 1) * $perPage, $perPage),
-            count($komoditasRaw),
+        $paginator = new LengthAwarePaginator(
+            array_slice($komoditas, ($page - 1) * $perPage, $perPage),
+            count($komoditas),
             $perPage,
             $page,
             ['path' => url()->current()]
         );
 
-        return view('user.komoditas_kecamatan', compact('kecamatan', 'komoditas'));
+
+        return response()->json([
+            'data' => $paginator->items(),
+            'current_page' => $paginator->currentPage(),
+            'last_page' => $paginator->lastPage(),
+            'total' => $paginator->total(),
+            'per_page' => $paginator->perPage()
+        ]);
     }
+
+
     public function persebaran_komoditas()
     {
         $komoditas = DB::select('CALL viewAll_komoditas()');
-
-        // Ambil data awal dengan pagination
-        $persebaranRaw = DB::select('CALL viewAll_persebaranKomoditas()');
-        $perPage = 6;
-        $page = request()->query('page', 1);
-        $persebaran = new LengthAwarePaginator(
-            array_slice($persebaranRaw, ($page - 1) * $perPage, $perPage),
-            count($persebaranRaw),
-            $perPage,
-            $page,
-            ['path' => url()->current()]
-        );
-
-        return view('user/persebaran_komoditas', compact('komoditas', 'persebaran'));
+        return view('user.persebaran_komoditas', compact('komoditas'));
     }
 
     public function getPersebaranKomoditas(Request $request, $id)
     {
-        $perPage = 6; // Jumlah item per halaman
-        $page = $request->query('page', 1); // Ambil parameter halaman dari request
+        $perPage = 6;
+        $page = $request->query('page', 1);
 
         if ($id === "all") {
-            $persebaran = DB::select('CALL viewAll_persebaranKomoditas()');
+            $data = DB::select('CALL viewAll_persebaranKomoditas()');
         } else {
-            $persebaran = DB::select('CALL view_persebaranKomoditas(?)', [$id]);
+            $data = DB::select('CALL view_persebaranKomoditas(?)', [$id]);
         }
 
-        // Konversi array hasil query menjadi Laravel paginator secara manual
-        $persebaranPaginated = new LengthAwarePaginator(
-            array_slice($persebaran, ($page - 1) * $perPage, $perPage), // Data sesuai halaman
-            count($persebaran), // Total jumlah data
+        $paginator = new LengthAwarePaginator(
+            array_slice($data, ($page - 1) * $perPage, $perPage),
+            count($data),
             $perPage,
             $page,
-            ['path' => url()->current()] // URL dasar untuk pagination
+            ['path' => url()->current()]
         );
 
-        return response()->json($persebaranPaginated);
+        return response()->json([
+            'data' => $paginator->items(),
+            'current_page' => $paginator->currentPage(),
+            'last_page' => $paginator->lastPage(),
+            'total' => $paginator->total(),
+            'per_page' => $paginator->perPage()
+        ]);
     }
 
 
     public function harga()
     {
 
-        $hargaRaw = DB::select('CALL viewAll_latestHarga()');
         $pasar = DB::select('CALL viewAll_pasar()');
-        $perPage = 6;
-        $page = request()->query('page', 1);
-        $harga = new LengthAwarePaginator(
-            array_slice($hargaRaw, ($page - 1) * $perPage, $perPage),
-            count($hargaRaw),
-            $perPage,
-            $page,
-            ['path' => url()->current()]
-        );
-        return view('user/harga', compact('pasar', 'harga'));
+        return view('user/harga', compact('pasar'));
     }
 
     // view_hargaByPasar
 
     public function getHarga(Request $request, $id)
     {
-        $perPage = 6; // Jumlah item per halaman
+        $perPage = 1; // Jumlah item per halaman
         $page = $request->query('page', 1); // Ambil parameter halaman dari request
 
         if ($id === "all") {
@@ -157,15 +136,21 @@ class UserController extends Controller
         }
 
         // Konversi array hasil query menjadi Laravel paginator secara manual
-        $hargaPaginated = new LengthAwarePaginator(
-            array_slice($harga, ($page - 1) * $perPage, $perPage), // Data sesuai halaman
-            count($harga), // Total jumlah data
+        $paginator = new LengthAwarePaginator(
+            array_slice($harga, ($page - 1) * $perPage, $perPage),
+            count($harga),
             $perPage,
             $page,
-            ['path' => url()->current()] // URL dasar untuk pagination
+            ['path' => url()->current()]
         );
 
-        return response()->json($hargaPaginated);
+        return response()->json([
+            'data' => $paginator->items(),
+            'current_page' => $paginator->currentPage(),
+            'last_page' => $paginator->lastPage(),
+            'total' => $paginator->total(),
+            'per_page' => $paginator->perPage()
+        ]);
     }
 
     public function getHargaPasar(Request $request)

@@ -30,21 +30,11 @@
 
 
         <div class="row" id="komoditasContainer">
-            @foreach ($komoditas as $item)
-            <div class="col-md-4 ftco-animate" data-kecamatan="{{ $item->dis_name }}">
-                <div class="project-wrap">
-                    <a href="" class="img" style="background-image:url('{{ asset('assets/images/' . $item->gambar) }}');"></a>
-                    <div class="text p-4">
-                        <h3><a href="#">{{ $item->nama_komoditas }}</a></h3>
-                        <p class="location"><span class="fa fa-map-marker"></span> {{ $item->subdis_name }}</p>
-                    </div>
-                </div>
-            </div>
-            @endforeach
+
         </div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-5 mb-5">
         <div class="col text-center">
             <div class="block-27">
                 <ul id="paginationContainer">
@@ -56,16 +46,14 @@
 </section>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('filterKecamatan').addEventListener('change', function() {
-            let selectedKecamatan = this.value;
-            let container = document.getElementById('komoditasContainer');
-            // container.innerHTML = '<p>Loading...</p>';
+        const filterDropdown = document.getElementById('filterKecamatan');
+        const container = document.getElementById("komoditasContainer");
 
-            fetch(`/get-komoditas-kecamatan/${encodeURIComponent(selectedKecamatan)}?timestamp=${Date.now()}`)
+        function fetchKomoditas(url) {
+            fetch(url + '&timestamp=' + Date.now())
                 .then(response => response.json())
                 .then(responseData => {
                     container.innerHTML = '';
-
                     let komoditasArray = responseData.data;
 
                     if (!Array.isArray(komoditasArray) || komoditasArray.length === 0) {
@@ -75,115 +63,71 @@
 
                     komoditasArray.forEach(item => {
                         let div = document.createElement('div');
-                        div.classList.add('col-md-4'); // Tambahkan kembali class animasi
+                        div.className = 'col-md-4';
                         div.setAttribute('data-kecamatan', item.dis_name);
-
                         div.innerHTML = `
-                        <div class="project-wrap">
-                            <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}');"></a>
-                            <div class="text p-4">
-                                <h3><a href="#">${item.nama_komoditas}</a></h3>
-                                <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}</p>
+                            <div class="project-wrap">
+                                <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}');"></a>
+                                <div class="text p-4">
+                                    <h3><a href="#">${item.nama_komoditas}</a></h3>
+                                    <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}</p>
+                                </div>
                             </div>
-                        </div>
-                    `;
-
+                        `;
                         container.appendChild(div);
                     });
 
-                    // 🔥 **Re-trigger animasi setelah elemen ditambahkan**
-                    setTimeout(() => {
-                        AOS.init(); // Jika menggunakan AOS
-                    }, 50);
+                    generatePagination(responseData);
+                    setTimeout(() => AOS.init(), 50); // Jika pakai animasi AOS
                 })
                 .catch(err => {
                     container.innerHTML = '<p>Error loading data.</p>';
                     console.error(err);
                 });
-        });
-    });
-
-    function generatePagination(pagination) {
-        let paginationContainer = document.getElementById("paginationContainer");
-        paginationContainer.innerHTML = "";
-
-        if (pagination.last_page <= 1) return; // Tidak perlu pagination jika hanya 1 halaman
-
-        let prevPage = pagination.current_page > 1 ? pagination.current_page - 1 : 1;
-        let nextPage = pagination.current_page < pagination.last_page ? pagination.current_page + 1 : pagination.last_page;
-
-        paginationContainer.innerHTML += `<li><a href="#" data-page="${prevPage}">&lt;</a></li>`;
-
-        for (let i = 1; i <= pagination.last_page; i++) {
-            paginationContainer.innerHTML += `
-            <li class="${i === pagination.current_page ? 'active' : ''}">
-                <a href="#" data-page="${i}">${i}</a>
-            </li>
-        `;
         }
 
-        paginationContainer.innerHTML += `<li><a href="#" data-page="${nextPage}">&gt;</a></li>`;
+        function generatePagination(pagination) {
+            const paginationContainer = document.getElementById("paginationContainer");
+            paginationContainer.innerHTML = "";
 
-        // **Tambahkan Event Listener ke Semua Tombol Pagination**
-        document.querySelectorAll("#paginationContainer a").forEach(link => {
-            link.addEventListener("click", function(event) {
-                event.preventDefault(); // 🔥 Mencegah reload
-                let page = this.getAttribute("data-page");
-                let selectedKecamatan = document.getElementById('filterKecamatan').value;
-                fetchKomoditas(`/get-komoditas-kecamatan/${encodeURIComponent(selectedKecamatan)}?page=${page}`);
-            });
-        });
-    }
+            if (pagination.last_page <= 1) return;
 
-    function fetchKomoditas(url) {
-        let container = document.getElementById("komoditasContainer");
-        // container.innerHTML = '<p>Loading...</p>';
+            const prevPage = pagination.current_page > 1 ? pagination.current_page - 1 : 1;
+            const nextPage = pagination.current_page < pagination.last_page ? pagination.current_page + 1 : pagination.last_page;
 
-        fetch(url + '&timestamp=' + Date.now())
-            .then(response => response.json())
-            .then(responseData => {
-                container.innerHTML = '';
+            paginationContainer.innerHTML += `<li><a href="#" data-page="${prevPage}">&lt;</a></li>`;
 
-                let komoditasArray = responseData.data;
+            for (let i = 1; i <= pagination.last_page; i++) {
+                paginationContainer.innerHTML += `
+                    <li class="${i === pagination.current_page ? 'active' : ''}">
+                        <a href="#" data-page="${i}">${i}</a>
+                    </li>
+                `;
+            }
 
-                if (!Array.isArray(komoditasArray) || komoditasArray.length === 0) {
-                    container.innerHTML = '<p>Tidak ada data komoditas.</p>';
-                    return;
-                }
+            paginationContainer.innerHTML += `<li><a href="#" data-page="${nextPage}">&gt;</a></li>`;
 
-                komoditasArray.forEach(item => {
-                    let div = document.createElement('div');
-                    div.classList.add('col-md-4');
-                    div.setAttribute('data-kecamatan', item.dis_name);
-
-                    div.innerHTML = `
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}');"></a>
-                    <div class="text p-4">
-                        <h3><a href="#">${item.nama_komoditas}</a></h3>
-                        <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}</p>
-                    </div>
-                </div>
-            `;
-
-                    container.appendChild(div);
+            document.querySelectorAll('#paginationContainer a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedPage = this.getAttribute('data-page');
+                    const selectedId = filterDropdown.value;
+                    fetchKomoditas(`/get-komoditas-kecamatan/${encodeURIComponent(selectedId)}?page=${selectedPage}`);
                 });
-
-                // 🔥 **Perbarui pagination setelah data dimuat**
-                generatePagination(responseData);
-            })
-            .catch(err => {
-                container.innerHTML = '<p>Error loading data.</p>';
-                console.error(err);
             });
-    }
+        }
 
+        // Listener dropdown
+        filterDropdown.addEventListener('change', function() {
+            const selectedId = this.value;
+            fetchKomoditas(`/get-komoditas-kecamatan/${encodeURIComponent(selectedId)}?page=1`);
+        });
 
-    document.getElementById('filterKecamatan').addEventListener('change', function() {
-        let selectedKecamatan = this.value;
-        fetchKomoditas(`/get-komoditas-kecamatan/${encodeURIComponent(selectedKecamatan)}?page=1`);
+        // Initial auto-load
+        fetchKomoditas(`/get-komoditas-kecamatan/all?page=1`);
     });
 </script>
+
 
 
 @endsection
