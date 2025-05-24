@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\phpunit.xml" tests="4" assertions="16" errors="0" failures="0" skipped="0" time="0.351537">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.011942">
+      <testsuite name="Tests\Unit\ExampleTest" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Unit\ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.011942">
+        <testcase name="test_that_true_is_true" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Unit\ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.011942"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="3" assertions="15" errors="0" failures="0" skipped="0" time="0.339595">
+      <testsuite name="Tests\Feature\ExampleTest" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Feature\ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.275232">
+        <testcase name="test_the_application_returns_a_successful_response" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Feature\ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.275232"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\LoginControllerTest" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Feature\LoginControllerTest.php" tests="2" assertions="14" errors="0" failures="0" skipped="0" time="0.064363">
+        <testcase name="test_login_admin_berhasil" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Feature\LoginControllerTest.php" line="21" class="Tests\Feature\LoginControllerTest" classname="Tests.Feature.LoginControllerTest" assertions="9" time="0.045754"/>
+        <testcase name="test_login_gagal" file="C:\MATA KULIAH\SEMESTER 6\PA 3\Data_Pertanian2\pertanian\tests\Feature\LoginControllerTest.php" line="76" class="Tests\Feature\LoginControllerTest" classname="Tests.Feature.LoginControllerTest" assertions="5" time="0.018609"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
