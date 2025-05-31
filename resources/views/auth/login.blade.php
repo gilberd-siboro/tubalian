@@ -70,10 +70,13 @@
                     </form>
                 </div>
                 <div class="mt-5">
-                    <p class="mb-0 text-center text-15 text-slate-500 dark:text-zink-200">©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> Dinas Pertanian. Crafted with <i class="text-red-500 ri-heart-fill"></i> by <a href="#" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Dinas Pertanian</a>
+                    <p class="mb-0 text-center text-15 text-slate-500 dark:text-zink-200">
+                        Kembali ke halaman <a href="/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Beranda</a>
+                    </p>
+                    <p class=" mb-0 text-center text-15 text-slate-500 dark:text-zink-200">©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script> Dinas Pertanian. Crafted with <i class="text-red-500 ri-heart-fill"></i> by <a href="http://distan.taputkab.go.id/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Dinas Pertanian</a>
                     </p>
                 </div>
             </div>
