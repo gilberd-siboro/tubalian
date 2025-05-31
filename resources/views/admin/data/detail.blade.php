@@ -52,7 +52,7 @@
             @endforeach
         </div><!--end-->
     </div><!--end-->
-    <div class="xl:col-span-12">
+    <div class="xl:col-span-12 mt-5">
         <div class="grid grid-cols-1 gap-5">
             <div class="relative mb-0 overflow-hidden card group/item">
                 <div class="!p-10 card-body">

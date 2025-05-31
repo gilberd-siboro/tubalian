@@ -126,7 +126,7 @@ class UserController extends Controller
 
     public function getHarga(Request $request, $id)
     {
-        $perPage = 1; // Jumlah item per halaman
+        $perPage = 6; // Jumlah item per halaman
         $page = $request->query('page', 1); // Ambil parameter halaman dari request
 
         if ($id === "all") {

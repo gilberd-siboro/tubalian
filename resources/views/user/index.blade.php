@@ -1,13 +1,21 @@
 @extends('layout.user.nav')
 @section('content')
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_5.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_main.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
             <div class="col-md-7 ftco-animate">
-                <span class="subheading">Selamat Datang di Tubalian</span>
-                <h1 class="mb-4">Bersama Kembangkan Pertanian <span>Tapanuli Utara</span> </h1>
+                <h1 class="mb-4">
+                    Tubalian<br>
+                    Tapanuli Utara<br>
+                    Bangga lihat<br>
+                    Pertaniannya
+                </h1>
+                <!-- <h2 class="mb-4">asdasd </h2> -->
+            </div>
+            <div class="col-md-5 ftco-animate d-flex justify-content-center align-items-center">
+                <img src="images/logo.png" style="width:50% ;" alt="">
             </div>
         </div>
     </div>
@@ -30,7 +38,7 @@
             <div class="col-md-6 pl-md-5 py-5">
                 <div class="row justify-content-start pb-3">
                     <div class="col-md-12 heading-section ftco-animate ">
-                        <img style="max-width: 100%;" src="images/pimpinan2530.png" alt="">
+                        <img style="max-width: 100%;" src="images/pimpinan.png" alt="">
                     </div>
                 </div>
             </div>
@@ -38,17 +46,19 @@
                 <div class="row justify-content-start pb-3">
                     <div class="col-md-12 heading-section ftco-animate">
                         <h2 class="mb-4">VISI</h2>
-                        <p>Tapanuli Utara sebagai Lumbung Pangan dan Lumbung Sumberdaya Manusia yang Berkualitas serta daerah tujuan wisata.</p>
+                        <p>BERSAMA MEWUJUDKAN KABUPATEN TAPANULI UTARA YANG MAJU, BERBUDAYA DAN BERKELANJUTAN</p>
                         <h2 class="mb-4">MISI</h2>
                         <ul>
-                            <li>Meningkatkan ketahanan pangan dan kesejahteraan petani melalui perlindungan petani dan lahan pertanian berkelanjutan.</li>
-                            <li>Pengembangan komoditi dan produk unggulan daerah berbasis pertanian dan sumber daya lokal.</li>
-                            <li>Meningkatkan kualitas layanan pendidikan dan kesehatan.</li>
-                            <li>Meningkatkan kualitas dan daya saing SDM melalui pelatihan tenaga kerja, pemanfaatan IPTEK, dan pengembangan jiwa kewirausahaan.</li>
-                            <li>Meningkatkan destinasi wisata melalui pengembangan kawasan wisata alam dan budaya, rohani, dan agrowisata.</li>
-                            <li>Meningkatkan kualitas infrastruktur yang terintegrasi dengan mengacu pada penataan ruang/wilayah, perlindungan sumber daya alam, dan pelestarian lingkungan hidup.</li>
-                            <li>Meningkatkan kapasitas desa menuju desa mandiri.</li>
-                            <li>Meningkatkan kualitas pelayanan publik dengan sistem e-government.</li>
+                            <li>Memajukan ekonomi rakyat yang inklusif dan berdaya saing untuk meningkatkan pendapatan masyarakat.</li>
+                            <li>Memajukan ekonomi melalui pertanian yang maju dan berteknologi yang mampu memberikan produktifitas yang tinggi.</li>
+                            <li>Meningkatkan pelayanan pendidikan dan kesehatan yang berkualitas dan merata, pencegahan stunting serta peningkatan peran generasi muda dan perempuan dalam pembangunan.</li>
+                            <li>Pemenuhan kualitas infrastruktur dasar yang merata dan berkelanjutan berbasis kelestarian lingkungan dan tanggap resiko bencana.</li>
+                            <li>Penerapan kajian budaya dan kearifan lokal mulai dari pendidikan dasar untuk memperkuat karakter terbaik masyarakat sehingga mampu meminimalisir efek negatif arus cepat informasi dan media sosial.</li>
+                            <li>Pengembangan kebudayaan berdasarkan kekayaan budaya dan kearifan lokal.</li>
+                            <li>Memperkuat reformasi birokrasi, mengoptimalkan tata kelola pemerintahan.</li>
+                            <li>Menjadikan desa mandiri yang mampu memanfaatkan potensi sumber daya alam dan sumber daya manusia yang tersedia.</li>
+                            <li>Meningkatkan pelestarian lingkungan serta peningkatan upaya penanggulangan mitigasi dan bencana.</li>
+
                         </ul>
                     </div>
                 </div>
