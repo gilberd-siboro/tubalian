@@ -431,6 +431,21 @@ class AdminController extends Controller
 
     public function create_jenisKomoditas(Request $request)
     {
+
+        $nama_jenis = $request->get('nama_jenis');
+        $existingJk = DB::select('CALL viewAll_jenisKomoditas()');
+
+
+        // Cek apakah dis_name sudah ada (case-insensitive)
+        $isDuplicate = collect($existingJk)->contains(function ($item) use ($nama_jenis) {
+            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Jenis Komoditas sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $JenisKomoditas = json_encode([
             'JenisKomoditas' => $request->get('nama_jenis'),
         ]);
@@ -513,6 +528,20 @@ class AdminController extends Controller
 
     public function create_komoditas(Request $request)
     {
+
+
+        $komoditas = $request->get('nama_komoditas');
+        $existingKomoditas = DB::select('CALL viewAll_Komoditas()');
+
+        $isDuplicate = collect($existingKomoditas)->contains(function ($item) use ($komoditas) {
+            return strtolower($item->nama_komoditas) === strtolower($komoditas); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Komoditas sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         // Validasi file foto
         $request->validate([
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -523,7 +552,7 @@ class AdminController extends Controller
 
             $file = $request->file('gambar');
             $fileName = time() . '_' . $file->getClientOriginalName(); // Buat nama unik
-            $destinationPath = base_path('assets/images'); // Simpan di public/assets/images
+            $destinationPath = public_path('assets/images'); // Simpan di public/assets/images
             $file->move($destinationPath, $fileName); // Pindahkan file
         }
 
@@ -632,6 +661,19 @@ class AdminController extends Controller
 
     public function create_jenisLahan(Request $request)
     {
+
+        $jenis_lahan = $request->get('jenis_lahan');
+        $existingJl = DB::select('CALL viewAll_jenisLahan()');
+
+        $isDuplicate = collect($existingJl)->contains(function ($item) use ($jenis_lahan) {
+            return strtolower($item->nama_jenis_lahan) === strtolower($jenis_lahan); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Jenis Lahan sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $JenisLahan = json_encode([
             'JenisLahan' => $request->get('jenis_lahan'),
         ]);
@@ -712,6 +754,19 @@ class AdminController extends Controller
 
     public function create_lahan(Request $request)
     {
+
+        $lahan = $request->get('lahan');
+        $existingLahan = DB::select('CALL viewAll_lahan()');
+
+        $isDuplicate = collect($existingLahan)->contains(function ($item) use ($lahan) {
+            return strtolower($item->nama_lahan) === strtolower($lahan); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Lahan sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $Lahan = json_encode([
             'JenisLahan' => $request->get('id_jenis_lahan'),
             'Lahan' => $request->get('lahan'),
@@ -795,6 +850,19 @@ class AdminController extends Controller
 
     public function create_departemen(Request $request)
     {
+
+        $departemen = $request->get('departemen');
+        $existingDep = DB::select('CALL viewAll_departemen()');
+
+        $isDuplicate = collect($existingDep)->contains(function ($item) use ($departemen) {
+            return strtolower($item->namaDepartmen) === strtolower($departemen); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Departemen sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $Departemen = json_encode([
             'NamaDepartmen' => $request->get('departemen'),
             'Keterangan' => $request->get('keterangan'),
@@ -879,6 +947,22 @@ class AdminController extends Controller
 
     public function create_bidang(Request $request)
     {
+
+        $bidang = $request->get('nama_bidang');
+        $existingBidang = DB::select('CALL viewAll_bidang()');
+
+
+        // Cek apakah dis_name sudah ada (case-insensitive)
+        $isDuplicate = collect($existingBidang)->contains(function ($item) use ($bidang) {
+            return strtolower($item->nama_bidang) === strtolower($bidang); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Bidang sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
+
         $Bidang = json_encode([
             'NamaDepartmen' => $request->get('idDepartemen'),
             'NamaBidang' => $request->get('nama_bidang'),
@@ -960,8 +1044,24 @@ class AdminController extends Controller
         return view('admin/jabatan/index', compact('totalData', 'userData', 'jabatan'));
     }
 
+
     public function create_jabatan(Request $request)
     {
+
+        $jabatan = $request->get('jabatan');
+        $existingJabatan = DB::select('CALL viewAll_jabatan()');
+
+
+        // Cek apakah dis_name sudah ada (case-insensitive)
+        $isDuplicate = collect($existingJabatan)->contains(function ($item) use ($jabatan) {
+            return strtolower($item->jabatan) === strtolower($jabatan); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Jabatan sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $Jabatan = json_encode([
             'Jabatan' => $request->get('jabatan'),
             'Keterangan' => $request->get('keterangan'),
@@ -1045,6 +1145,19 @@ class AdminController extends Controller
 
     public function create_jabatanBidang(Request $request)
     {
+
+        $jabatan_bidang = $request->get('jabatan_bidang');
+        $existingJb = DB::select('CALL viewAll_jabatanBidang()');
+
+
+        $isDuplicate = collect($existingJb)->contains(function ($item) use ($jabatan_bidang) {
+            return strtolower($item->namaJabatanBidang) === strtolower($jabatan_bidang); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Jabatan Bidang sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
         $JabatanBidang = json_encode([
             'Jabatan' => $request->get('id_jabatan'),
             'Bidang' => $request->get('id_bidang'),
@@ -1129,6 +1242,20 @@ class AdminController extends Controller
 
     public function create_golonganPangkat(Request $request)
     {
+
+        $pangkat = $request->get('pangkat');
+        $existingPangkat = DB::select('CALL viewAll_golonganPangkat()');
+
+
+        $isDuplicate = collect($existingPangkat)->contains(function ($item) use ($pangkat) {
+            return strtolower($item->pangkat) === strtolower($pangkat); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Pangkat sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $GolonganPangkat = json_encode([
             'Golongan' => $request->get('golongan'),
             'Pangkat' => $request->get('pangkat'),
@@ -1515,7 +1642,6 @@ class AdminController extends Controller
         $existingDesa = DB::select('CALL viewAll_desa()');
 
 
-
         // Cek apakah dis_name sudah ada (case-insensitive)
         $isDuplicate = collect($existingDesa)->contains(function ($item) use ($subdis_name) {
             return strtolower($item->subdis_name) === strtolower($subdis_name); // pastikan sesuaikan nama kolomnya
@@ -1777,6 +1903,21 @@ class AdminController extends Controller
 
     public function create_pasar(Request $request)
     {
+
+        $pasar = $request->get('pasar');
+        $existingPasar = DB::select('CALL viewAll_pasar()');
+
+
+        // Cek apakah dis_name sudah ada (case-insensitive)
+        $isDuplicate = collect($existingPasar)->contains(function ($item) use ($pasar) {
+            return strtolower($item->nama_pasar) === strtolower($pasar); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('Nama Pasar sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $Pasar = json_encode([
             'Pasar' => $request->get('pasar'),
             'Lokasi' => $request->get('lokasi'),
