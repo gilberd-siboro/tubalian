@@ -474,6 +474,37 @@
             chart.render();
         </script>
         <!-- App js -->
+
+        <script>
+            // Initialize flatpickr on the input
+            flatpickr("#joiningDateInput", {
+                dateFormat: "d M, Y",
+                minDate: "today", // Optional: Force user to select today or later
+                onChange: function(selectedDates, dateStr, instance) {
+                    // If a date is selected, remove the placeholder text
+                    if (dateStr) {
+                        instance.input.setAttribute('placeholder', '');
+                    }
+                }
+            });
+
+            // Form validation
+            document.getElementById('create-form').addEventListener('submit', function(event) {
+                var tanggalInput = document.getElementById('joiningDateInput');
+                var selectedDate = tanggalInput.value;
+
+                if (!selectedDate) {
+                    // If no date is selected, show SweetAlert and prevent form submission
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Tanggal tidak boleh kosong!',
+                        confirmButtonColor: '#FF5733' // Optional: Customize button color
+                    });
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        </script>
         <script src="{{ asset('assets/js/app.js') }}"></script>
         @stack('scripts')
 </body>

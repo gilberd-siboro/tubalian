@@ -94,12 +94,12 @@
                 </div>
                 <div class="xl:col-span-6">
                     <label for="joiningDateInput" class="inline-block mb-2 text-base font-medium">Tanggal
-                        </label>
+                    </label>
                     <input type="text" required id="joiningDateInput" name="tanggal" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Pilih Tanggal" data-provider="flatpickr" data-date-format="d M, Y">
                 </div>
                 <div class="xl:col-span-12">
                     <label for="kel_tani" class="inline-block mb-2 text-base font-medium">Kelompok Tani</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="kel_tani" id="kel_tani">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="kel_tani" id="kel_tani">
                         <option value="">Pilih Kelompok Tani</option>
                         @foreach($kelompokTani as $k)
                         <option value="{{ $k->id_kelompok_tani }}">{{ $k->nama_kelompok_tani }}</option>

@@ -51,7 +51,7 @@
                         {{ $h->nama_komoditas }}
                     </td>
                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">
-                       Rp{{ number_format($h->harga, 0, ',', '.') }}
+                        Rp{{ number_format($h->harga, 0, ',', '.') }}
 
                     </td>
                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">
@@ -94,12 +94,15 @@
                 @csrf
                 <div class="xl:col-span-12">
                     <label for="lokasi" class="inline-block mb-2 text-base font-medium">Nama Komoditas</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="komoditas" id="komoditas">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="komoditas" id="komoditas">
                         <option value="">Pilih Komoditas</option>
                         @foreach($komoditas as $k)
                         <option value="{{ $k->id_komoditas }}">{{ $k->nama_komoditas }}</option>
                         @endforeach
                     </select>
+                    @error('pasar')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="grid grid-cols-1 gap-4 xl:grid-cols-12">
@@ -118,12 +121,15 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="pasar" class="inline-block mb-2 text-base font-medium">Nama Pasar</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="pasar" id="pasar">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="pasar" id="pasar">
                         <option value="">Pilih Pasar</option>
                         @foreach($pasar as $p)
                         <option value="{{ $p->id_pasar }}">{{ $p->nama_pasar }}</option>
                         @endforeach
                     </select>
+                                        @error('pasar')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
                     <button type="reset" id="close-modal" data-modal-close="Tambah" class="text-red-500 bg-white btn hover:text-red-500 hover:bg-red-100 focus:text-red-500 focus:bg-red-100 active:text-red-500 active:bg-red-100 dark:bg-zink-600 dark:hover:bg-red-500/10 dark:focus:bg-red-500/10 dark:active:bg-red-500/10">Cancel</button>
