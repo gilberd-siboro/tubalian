@@ -108,43 +108,41 @@ File: Common Plugins Js File
         // flatpickr
         var flatpickrExamples = document.querySelectorAll("[data-provider]");
         Array.from(flatpickrExamples).forEach(function (item) {
+            // Check if the item has the 'flatpickr' provider
             if (item.getAttribute("data-provider") == "flatpickr") {
                 var dateData = {};
                 var isFlatpickerVal = item.attributes;
-                if (isFlatpickerVal["data-date-format"])
+
+                // Handle the date format and other options for flatpickr
+                if (isFlatpickerVal["data-date-format"]) {
                     dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                }
                 if (isFlatpickerVal["data-enable-time"]) {
-                    (dateData.enableTime = true),
-                        (dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i");
+                    dateData.enableTime = true;
+                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString() + " H:i";
                 }
                 if (isFlatpickerVal["data-altFormat"]) {
-                    (dateData.altInput = true),
-                        (dateData.altFormat = isFlatpickerVal["data-altFormat"].value.toString());
+                    dateData.altInput = true;
+                    dateData.altFormat = isFlatpickerVal["data-altFormat"].value.toString();
                 }
                 if (isFlatpickerVal["data-minDate"]) {
                     dateData.minDate = isFlatpickerVal["data-minDate"].value.toString();
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 }
                 if (isFlatpickerVal["data-maxDate"]) {
                     dateData.maxDate = isFlatpickerVal["data-maxDate"].value.toString();
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 }
                 if (isFlatpickerVal["data-default-date"]) {
                     dateData.defaultDate = isFlatpickerVal["data-default-date"].value.toString();
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 }
                 if (isFlatpickerVal["data-multiple-date"]) {
                     dateData.mode = "multiple";
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 }
                 if (isFlatpickerVal["data-range-date"]) {
                     dateData.mode = "range";
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
                 }
                 if (isFlatpickerVal["data-inline-date"]) {
-                    (dateData.inline = true),
-                        (dateData.defaultDate = isFlatpickerVal["data-default-date"].value.toString());
-                    dateData.dateFormat = isFlatpickerVal["data-date-format"].value.toString();
+                    dateData.inline = true;
+                    dateData.defaultDate = isFlatpickerVal["data-default-date"].value.toString();
                 }
                 if (isFlatpickerVal["data-disable-date"]) {
                     var dates = [];
@@ -152,49 +150,58 @@ File: Common Plugins Js File
                     dateData.disable = dates.toString().split(",");
                 }
                 if (isFlatpickerVal["data-week-number"]) {
-                    var dates = [];
-                    dates.push(isFlatpickerVal["data-week-number"].value);
-                    dateData.weekNumbers = true
+                    dateData.weekNumbers = true;
                 }
+
+                // Initialize flatpickr after DOM is fully loaded
                 document.addEventListener('DOMContentLoaded', function () {
                     flatpickr(item, dateData);
+                });
+
+                // Allow typing in the input field without flatpickr interfering
+                item.addEventListener('input', function () {
+                    if (item.value && flatpickr(item)._input !== document.activeElement) {
+                        item.blur(); // Blur the flatpickr input if the user starts typing manually
+                    }
                 });
             } else if (item.getAttribute("data-provider") == "timepickr") {
                 var timeData = {};
                 var isTimepickerVal = item.attributes;
+
+                // Handle time picker options for flatpickr
                 if (isTimepickerVal["data-time-basic"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.dateFormat = "H:i");
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.dateFormat = "H:i";
                 }
                 if (isTimepickerVal["data-time-hrs"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.dateFormat = "H:i"),
-                        (timeData.time_24hr = true);
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.dateFormat = "H:i";
+                    timeData.time_24hr = true;
                 }
                 if (isTimepickerVal["data-min-time"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.dateFormat = "H:i"),
-                        (timeData.minTime = isTimepickerVal["data-min-time"].value.toString());
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.dateFormat = "H:i";
+                    timeData.minTime = isTimepickerVal["data-min-time"].value.toString();
                 }
                 if (isTimepickerVal["data-max-time"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.dateFormat = "H:i"),
-                        (timeData.minTime = isTimepickerVal["data-max-time"].value.toString());
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.dateFormat = "H:i";
+                    timeData.minTime = isTimepickerVal["data-max-time"].value.toString();
                 }
                 if (isTimepickerVal["data-default-time"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.dateFormat = "H:i"),
-                        (timeData.defaultDate = isTimepickerVal["data-default-time"].value.toString());
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.dateFormat = "H:i";
+                    timeData.defaultDate = isTimepickerVal["data-default-time"].value.toString();
                 }
                 if (isTimepickerVal["data-time-inline"]) {
-                    (timeData.enableTime = true),
-                        (timeData.noCalendar = true),
-                        (timeData.defaultDate = isTimepickerVal["data-time-inline"].value.toString());
+                    timeData.enableTime = true;
+                    timeData.noCalendar = true;
+                    timeData.defaultDate = isTimepickerVal["data-time-inline"].value.toString();
                     timeData.inline = true;
                 }
                 setTimeout(() => {
@@ -202,6 +209,7 @@ File: Common Plugins Js File
                 }, 750);
             }
         });
+
     }
 
     // Counter Number
