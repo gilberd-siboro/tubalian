@@ -92,7 +92,7 @@
                 @csrf
                 <div class="xl:col-span-12">
                     <label for="jabatan" class="inline-block mb-2 text-base font-medium">Jabatan</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jabatan" id="id_jabatan">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jabatan" id="id_jabatan">
                         <option value="">Pilih Jabatan</option>
                         @foreach($jabatan as $j)
                         <option value="{{ $j->idJabatan }}">{{ $j->jabatan }}</option>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="bidang" class="inline-block mb-2 text-base font-medium">Bidang</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_bidang" id="id_bidang">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_bidang" id="id_bidang">
                         <option value="">Pilih Bidang</option>
                         @foreach($bidang as $b)
                         <option value="{{ $b->id_bidang}}">{{ $b->nama_bidang }}</option>

@@ -89,7 +89,7 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Jenis Lahan</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jenis_lahan" id="id_jenis_lahan">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jenis_lahan" id="id_jenis_lahan">
                         <option value="">Pilih Jenis Lahan</option>
                         @foreach($jenisLahan as $jl)
                         <option value="{{ $jl->id_jenis_lahan }}">{{ $jl->nama_jenis_lahan }}</option>

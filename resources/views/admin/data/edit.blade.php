@@ -20,7 +20,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div class="mb-3">
                     <label for="namaPetani" class="inline-block mb-2 text-base font-medium">Petani</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_petani" id="id_petani">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_petani" id="id_petani">
                         <option value="">Pilih Petani</option>
                         @foreach($petani as $p)
                         <option value="{{ $p->id_petani }}" {{ $p->id_petani == $dataPertanian->id_petani ? 'selected' : '' }}>{{ $p->nama_depan }} {{ $p->nama_belakang }} </option>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="mb-3 ">
                     <label for="komoditas" class="inline-block mb-2 text-base font-medium">Lahan</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_lahan" id="id_lahan">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_lahan" id="id_lahan">
                         <option value="">Pilih Lahan</option>
                         @foreach($lahan as $l)
                         <option value="{{ $l->id_lahan }}" {{ $l->id_lahan == $dataPertanian->id_lahan ? 'selected' : '' }}>{{ $l->nama_lahan }} </option>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="mb-3 ">
                     <label for="komoditas" class="inline-block mb-2 text-base font-medium">Komoditas</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_komoditas" id="id_komoditas">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_komoditas" id="id_komoditas">
                         <option value="">Pilih Komoditas</option>
                         @foreach($komoditas as $k)
                         <option value="{{ $k->id_komoditas }}" {{ $k->id_komoditas == $dataPertanian->id_komoditas ? 'selected' : '' }}>{{ $k->nama_komoditas }} </option>
@@ -47,11 +47,11 @@
                 </div>
                 <div class="mb-3 ">
                     <label for="luasLahan" class="inline-block mb-2 text-base font-medium">Luas Lahan (m<sup>2</sup>)</label>
-                    <input type="text" id="luasLahan" name="luasLahan" value="{{ old('luasLahan', $dataPertanian->luas_lahan) }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="luasLahan" name="luasLahan" value="{{ old('luasLahan', $dataPertanian->luas_lahan) }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3  md:col-span-2">
                     <label for="desa" class="inline-block mb-2 text-base font-medium">Desa</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="subdis_id" id="subdis_id">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="subdis_id" id="subdis_id">
                         <option value="">Pilih Desa</option>
                         @foreach($desa as $d)
                         <option value="{{ $d->subdis_id }}" {{ $d->subdis_id == $dataPertanian->subdis_id ? 'selected' : '' }}>{{ $d->subdis_name }} </option>
@@ -60,8 +60,8 @@
                 </div>
                 <div class="mb-3">
                     <label class="inline-block mb-2 text-base font-medium">Tanggal Tanam</label>
-                    <input type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($dataPertanian->tanggal_tanam)->format('Y-m-d') }}">
-                    <input type="hidden" name="tanggal_tanam" class="formatted-date-input">
+                    <input required type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($dataPertanian->tanggal_tanam)->format('Y-m-d') }}">
+                    <input required type="hidden" name="tanggal_tanam" class="formatted-date-input">
                 </div>
                 <div class="mb-3">
                     <p class="formatted-date-display">Tanggal Tanam: {{ $dataPertanian->tanggal_tanam }}</p>
@@ -70,20 +70,20 @@
                 <!-- Tanggal Pencatatan -->
                 <div class="mb-3">
                     <label class="inline-block mb-2 text-base font-medium">Tanggal Pencatatan</label>
-                    <input type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($dataPertanian->tanggal_pencatatan)->format('Y-m-d') }}">
-                    <input type="hidden" name="tanggal_pencatatan" class="formatted-date-input">
+                    <input required type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($dataPertanian->tanggal_pencatatan)->format('Y-m-d') }}">
+                    <input required type="hidden" name="tanggal_pencatatan" class="formatted-date-input">
                 </div>
                 <div class="mb-3">
                     <p class="formatted-date-display">Tanggal Pencatatan: {{ $dataPertanian->tanggal_pencatatan }}</p>
                 </div>
                 <div class="mb-3 ">
                     <label for="luasLahan" class="inline-block mb-2 text-base font-medium">Alamat Lengkap</label>
-                    <input type="text" id="alamatLengkap" name="alamatLengkap" value="{{ old('alamatLengkap', $dataPertanian->alamat_lengkap) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="alamatLengkap" name="alamatLengkap" value="{{ old('alamatLengkap', $dataPertanian->alamat_lengkap) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3 md:col-span-2">
                     <label for="gambar" class="inline-block mb-2 text-base font-medium">Gambar Lahan</label>
                     <div>
-                        <input type="file" name="gambar[]" multiple accept="image/*" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
+                        <input required type="file" name="gambar[]" multiple accept="image/*" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
                     </div>
                 </div>
                 <div class="mb-3 md:col-span-2">

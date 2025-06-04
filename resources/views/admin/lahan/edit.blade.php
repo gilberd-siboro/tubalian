@@ -19,11 +19,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div class="mb-3 md:col-span-2">
                     <label for="namaLahan" class="inline-block mb-2 text-base font-medium">Nama Lahan</label>
-                    <input type="text" id="namaLahan" name="namaLahan" value="{{ old('namaLahan', $lahan->nama_lahan) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="namaLahan" name="namaLahan" value="{{ old('namaLahan', $lahan->nama_lahan) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3 md:col-span-2">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Jenis Lahan</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jenisLahan" id="jenisLahan">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jenisLahan" id="jenisLahan">
                         <option value="">Pilih Jenis Lahan</option>
                         @foreach($jenisLahan as $jl)
                         <option value="{{ $jl->id_jenis_lahan }}" {{ $jl->id_jenis_lahan == $lahan->id_jenis_lahan ? 'selected' : '' }}>{{ $jl->nama_jenis_lahan }} </option>

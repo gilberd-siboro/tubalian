@@ -19,7 +19,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div class="mb-3">
                     <label for="jabatan" class="inline-block mb-2 text-base font-medium">Jabatan</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatan" id="jabatan">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatan" id="jabatan">
                         <option value="">Pilih Jabatan</option>
                         @foreach($jabatan as $j)
                         <option value="{{ $j->idJabatan }}" {{ $j->idJabatan == $jabatanBidang->idJabatan ? 'selected' : '' }}>
@@ -31,7 +31,7 @@
 
                 <div class="mb-3">
                     <label for="bidang" class="inline-block mb-2 text-base font-medium">Bidang</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="bidang" id="bidang">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="bidang" id="bidang">
                         <option value="">Pilih Bidang</option>
                         @foreach($bidang as $b)
                         <option value="{{ $b->id_bidang }}" {{ $b->id_bidang == $jabatanBidang->id_bidang ? 'selected' : '' }}>
@@ -42,11 +42,11 @@
                 </div>
                 <div class="mb-3 md:col-span-2">
                     <label for="namaJabatanBidang" class="inline-block mb-2 text-base font-medium">Nama Jabatan Bidang</label>
-                    <input type="text" id="namaJabatanBidang" name="namaJabatanBidang" value="{{ old('namaJabatanBidang', $jabatanBidang->namaJabatanBidang) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="namaJabatanBidang" name="namaJabatanBidang" value="{{ old('namaJabatanBidang', $jabatanBidang->namaJabatanBidang) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3  md:col-span-2">
                     <label for="textArea" class="inline-block mb-2 text-base font-medium">Keterangan</label>
-                    <textarea name="keterangan" placeholder="Keterangan" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" id="textArea" rows="3">{{ old('keterangan', $jabatanBidang->keterangan) }}</textarea>
+                    <textarea required name="keterangan" placeholder="Keterangan" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" id="textArea" rows="3">{{ old('keterangan', $jabatanBidang->keterangan) }}</textarea>
                     <!-- <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $jabatanBidang->keterangan) }}" class="form-input w-full"> -->
                 </div>
             </div>

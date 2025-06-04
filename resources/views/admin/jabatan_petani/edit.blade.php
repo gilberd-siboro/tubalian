@@ -19,7 +19,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div class="mb-3  md:col-span-2">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Jabatan Bidang</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatanBidang" id="jabatanBidang">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatanBidang" id="jabatanBidang">
                         <option value="">Pilih Jabatan Bidang</option>
                         @foreach($jabatanPokTan as $jp)
                         <option value="{{ $jp->idJabatanBidang }}" {{ $jp->idJabatanBidang == $jabatanPetani->idJabatanBidang ? 'selected' : '' }}>{{ $jp->namaJabatanBidang }} </option>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Kelompok Tani</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="kelompokTani" id="kelompokTani">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="kelompokTani" id="kelompokTani">
                         <option value="">Pilih Kelompok Tani</option>
                         @foreach($kelompokTani as $kt)
                         <option value="{{ $kt->id_kelompok_tani }}" {{ $kt->id_kelompok_tani == $jabatanPetani->id_kelompok_tani ? 'selected' : '' }}>{{ $kt->nama_kelompok_tani }} </option>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Petani</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="petani" id="petani">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="petani" id="petani">
                         <option value="">Pilih Petani</option>
                         @foreach($petani as $p)
                         <option value="{{ $p->id_petani }}" {{ $p->id_petani == $jabatanPetani->id_petani ? 'selected' : '' }}>{{ $p->nama_depan }} {{ $p->nama_belakang }} </option>

@@ -131,7 +131,7 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="golongan_pangkat" class="inline-block mb-2 text-base font-medium">Golongan Pangkat</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_golongan_pangkat" id="id_golongan_pangkat">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_golongan_pangkat" id="id_golongan_pangkat">
                         <option value="">Pilih Golongan Pangkat</option>
                         @foreach($golonganPangkat as $gp)
                         <option value="{{ $gp->idGolonganPangkat}}">{{ $gp->golongan }} {{ $gp->pangkat }}</option>
@@ -140,7 +140,7 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="jabatan_bidang" class="inline-block mb-2 text-base font-medium">Jabatan Bidang</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jabatan_bidang" id="id_jabatan_bidang">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="id_jabatan_bidang" id="id_jabatan_bidang">
                         <option value="">Pilih Jabatan Bidang</option>
                         @foreach($jabatanBidang as $jb)
                         <option value="{{ $jb->idJabatanBidang}}">{{ $jb->namaJabatanBidang }}</option>
@@ -149,7 +149,7 @@
                 </div>
                 <div class="xl:col-span-12">
                     <label for="desa" class="inline-block mb-2 text-base font-medium">Desa</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="subdis_id" id="subdis_id">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="subdis_id" id="subdis_id">
                         <option value="">Pilih Desa</option>
                         @foreach($desa as $d)
                         <option value="{{ $d->subdis_id}}">{{ $d->subdis_name }}</option>

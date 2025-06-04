@@ -113,7 +113,7 @@
                     <div class="xl:col-span-12">
                         <label for="foto" class="inline-block mb-2 text-base font-medium">Foto</label>
                         <div>
-                            <input type="file" required name="foto" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
+                            <input required type="file" required name="foto" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
                         </div>
                     </div>
                 </div>

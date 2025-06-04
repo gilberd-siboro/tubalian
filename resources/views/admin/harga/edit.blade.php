@@ -19,7 +19,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
                 <div class="mb-3">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Komoditas</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="komoditas" id="komoditas">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="komoditas" id="komoditas">
                         <option value="">Pilih Komoditas</option>
                         @foreach($komoditas as $k)
                         <option value="{{ $k->id_komoditas }}" {{ $k->id_komoditas == $harga->id_komoditas ? 'selected' : '' }}>{{ $k->nama_komoditas }} </option>
@@ -30,20 +30,20 @@
                     <label for="Harga" class="inline-block mb-2 text-base font-medium">Harga</label>
                     <div class="flex items-center">
                         <span class="inline-block px-3 py-2 border ltr:border-r-0 rtl:border-l-0 border-slate-200 dark:border-zink-500 ltr:rounded-l-md rtl:rounded-r-md">Rp</span>
-                        <input type="text" id="inputText" value="{{ old('harga', $harga->harga) }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="harga" class="ltr:rounded-l-none rtl:rounded-r-none form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="00000">
+                        <input required type="text" id="inputText" value="{{ old('harga', $harga->harga) }}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="harga" class="ltr:rounded-l-none rtl:rounded-r-none form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="00000">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="inline-block mb-2 text-base font-medium">Tanggal</label>
-                    <input type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($harga->tanggal)->format('Y-m-d') }}">
-                    <input type="hidden" name="tanggal" class="formatted-date-input">
+                    <input required type="date" class="date-input form-input border-slate-200 dark:border-zink-500" value="{{ \Carbon\Carbon::parse($harga->tanggal)->format('Y-m-d') }}">
+                    <input required type="hidden" name="tanggal" class="formatted-date-input">
                 </div>
                 <div class="mb-3">
                     <p class="formatted-date-display">Tanggal : {{ $harga->tanggal }}</p>
                 </div>
                 <div class="mb-3 md:col-span-2">
                     <label for="role" class="inline-block mb-2 text-base font-medium">Pasar</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="pasar" id="pasar">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="pasar" id="pasar">
                         <option value="">Pilih Pasar</option>
                         @foreach($pasar as $p)
                         <option value="{{ $p->id_pasar }}" {{ $p->id_pasar == $harga->id_pasar ? 'selected' : '' }}>{{ $p->nama_pasar }} </option>

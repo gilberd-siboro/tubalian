@@ -30,15 +30,15 @@
                 </div>
                 <div class="mb-3">
                     <label for="nip" class="inline-block mb-2 text-base font-medium">NIP</label>
-                    <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3">
                     <label for="namaPegawai" class="inline-block mb-2 text-base font-medium">Nama Pegawai</label>
-                    <input type="text" id="namaPegawai" name="namaPegawai" value="{{ old('namaPegawai', $pegawai->namaPegawai) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="namaPegawai" name="namaPegawai" value="{{ old('namaPegawai', $pegawai->namaPegawai) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3">
                     <label for="golonganPangkat" class="inline-block mb-2 text-base font-medium">Golongan Pangkat</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="golonganPangkat" id="golonganPangkat">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="golonganPangkat" id="golonganPangkat">
                         <option value="">Pilih Golongan Pangkat</option>
                         @foreach($golonganPangkat as $gp)
                         <option value="{{ $gp->idGolonganPangkat }}" {{ $gp->idGolonganPangkat == $pegawai->idGolonganPangkat ? 'selected' : '' }}>{{ $gp->golongan }} {{ $gp->pangkat }} </option>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="mb-3 md:col-span-2">
                     <label for="jabatanBidang" class="inline-block mb-2 text-base font-medium">Jabatan Bidang</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatanBidang" id="jabatanBidang">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="jabatanBidang" id="jabatanBidang">
                         <option value="">Pilih Jabatan Bidang</option>
                         @foreach($jabatanBidang as $jb)
                         <option value="{{ $jb->idJabatanBidang }}" {{ $jb->idJabatanBidang == $pegawai->idJabatanBidang ? 'selected' : '' }}>{{ $jb->namaJabatanBidang }} </option>
@@ -56,19 +56,19 @@
                 </div>
                 <div class="mb-3">
                     <label for="alamat" class="inline-block mb-2 text-base font-medium">Alamat</label>
-                    <input type="text" id="alamat" name="alamat" value="{{ old('alamat', $pegawai->alamat) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" id="alamat" name="alamat" value="{{ old('alamat', $pegawai->alamat) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3">
                     <label for="ponsel" class="inline-block mb-2 text-base font-medium">No Ponsel</label>
-                    <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="ponsel" name="ponsel" value="{{ old('ponsel', $pegawai->noPonsel) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="ponsel" name="ponsel" value="{{ old('ponsel', $pegawai->noPonsel) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3">
                     <label for="wa" class="inline-block mb-2 text-base font-medium">No WA</label>
-                    <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="wa" name="wa" value="{{ old('wa', $pegawai->noWA) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
+                    <input required type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="wa" name="wa" value="{{ old('wa', $pegawai->noWA) }}" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200">
                 </div>
                 <div class="mb-3 md:col-span-3">
                     <label for="desa" class="inline-block mb-2 text-base font-medium">Desa</label>
-                    <select class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="desa" id="desa">
+                    <select required class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" name="desa" id="desa">
                         <option value="">Pilih Desa</option>
                         @foreach($desa as $d)
                         <option value="{{ $d->subdis_id }}" {{ $d->subdis_id == $pegawai->subdis_id ? 'selected' : '' }}>{{ $d->subdis_name }} </option>
