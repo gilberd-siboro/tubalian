@@ -1,4 +1,4 @@
-x@extends('layout.admin.dash')
+@extends('layout.admin.dash')
 @section('content')
 <div class="flex flex-col gap-2 py-4 md:flex-row md:items-center print:hidden">
     <ul class="flex flex-wrap items-center gap-2 mb-3 font-normal text-15">
