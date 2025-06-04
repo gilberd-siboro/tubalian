@@ -83,7 +83,7 @@
                 <div class="mb-3 md:col-span-2">
                     <label for="gambar" class="inline-block mb-2 text-base font-medium">Gambar Lahan</label>
                     <div>
-                        <input required type="file" name="gambar[]" multiple accept="image/*" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
+                        <input type="file" name="gambar[]" multiple accept="image/*" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
                     </div>
                 </div>
                 <div class="mb-3 md:col-span-2">
