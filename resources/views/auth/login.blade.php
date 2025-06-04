@@ -42,7 +42,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="username" class="inline-block mb-2 text-base font-medium">Username</label>
-                            <input type="text" id="username" name="username" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Enter username" value="{{ old('username') }}">
+                            <input type="text" id="username" name="username" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Masukkan Username" value="{{ old('username') }}">
 
                             @error('username')
                             <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="inline-block mb-2 text-base font-medium">Password</label>
-                            <input type="password" id="password" name="password" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Enter password">
+                            <input type="password" id="password" name="password" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Masukkan Password">
 
                             @error('password')
                             <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -74,9 +74,9 @@
                         Kembali ke halaman <a href="/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Beranda</a>
                     </p>
                     <p class=" mb-0 text-center text-15 text-slate-500 dark:text-zink-200">©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script> Dinas Pertanian. Crafted with <i class="text-red-500 ri-heart-fill"></i> by <a href="http://distan.taputkab.go.id/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Dinas Pertanian</a>
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> Dinas Pertanian. Crafted with <i class="text-red-500 ri-heart-fill"></i> by <a href="http://distan.taputkab.go.id/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Dinas Pertanian</a>
                     </p>
                 </div>
             </div>

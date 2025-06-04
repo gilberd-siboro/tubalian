@@ -16,11 +16,17 @@ class AuthController extends Controller
 
     public function proses_login(Request $request)
     {
+
+        $messages = [
+            'username.required' => 'Username wajib diisi!',
+            'password.required' => 'Password wajib diisi!',
+        ];
+
         // Validasi form input
         $request->validate([
             'username' => 'required|string|max:16',
             'password' => ['required', 'regex:/^[a-zA-Z0-9]+$/'],
-        ]);
+        ], $messages);
 
         // Ambil inputan
         $credential = $request->only('username', 'password');
