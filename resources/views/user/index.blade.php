@@ -49,15 +49,15 @@
                         <p>BERSAMA MEWUJUDKAN KABUPATEN TAPANULI UTARA YANG MAJU, BERBUDAYA DAN BERKELANJUTAN</p>
                         <h2 class="mb-4">MISI</h2>
                         <ul>
-                            <li>Memajukan ekonomi rakyat yang inklusif dan berdaya saing untuk meningkatkan pendapatan masyarakat.</li>
-                            <li>Memajukan ekonomi melalui pertanian yang maju dan berteknologi yang mampu memberikan produktifitas yang tinggi.</li>
-                            <li>Meningkatkan pelayanan pendidikan dan kesehatan yang berkualitas dan merata, pencegahan stunting serta peningkatan peran generasi muda dan perempuan dalam pembangunan.</li>
-                            <li>Pemenuhan kualitas infrastruktur dasar yang merata dan berkelanjutan berbasis kelestarian lingkungan dan tanggap resiko bencana.</li>
-                            <li>Penerapan kajian budaya dan kearifan lokal mulai dari pendidikan dasar untuk memperkuat karakter terbaik masyarakat sehingga mampu meminimalisir efek negatif arus cepat informasi dan media sosial.</li>
-                            <li>Pengembangan kebudayaan berdasarkan kekayaan budaya dan kearifan lokal.</li>
-                            <li>Memperkuat reformasi birokrasi, mengoptimalkan tata kelola pemerintahan.</li>
-                            <li>Menjadikan desa mandiri yang mampu memanfaatkan potensi sumber daya alam dan sumber daya manusia yang tersedia.</li>
-                            <li>Meningkatkan pelestarian lingkungan serta peningkatan upaya penanggulangan mitigasi dan bencana.</li>
+                            <li style="color: #000 !important;">Memajukan ekonomi rakyat yang inklusif dan berdaya saing untuk meningkatkan pendapatan masyarakat.</li>
+                            <li style="color: #000 !important;">Memajukan ekonomi melalui pertanian yang maju dan berteknologi yang mampu memberikan produktifitas yang tinggi.</li>
+                            <li style="color: #000 !important;">Meningkatkan pelayanan pendidikan dan kesehatan yang berkualitas dan merata, pencegahan stunting serta peningkatan peran generasi muda dan perempuan dalam pembangunan.</li>
+                            <li style="color: #000 !important;">Pemenuhan kualitas infrastruktur dasar yang merata dan berkelanjutan berbasis kelestarian lingkungan dan tanggap resiko bencana.</li>
+                            <li style="color: #000 !important;">Penerapan kajian budaya dan kearifan lokal mulai dari pendidikan dasar untuk memperkuat karakter terbaik masyarakat sehingga mampu meminimalisir efek negatif arus cepat informasi dan media sosial.</li>
+                            <li style="color: #000 !important;">Pengembangan kebudayaan berdasarkan kekayaan budaya dan kearifan lokal.</li>
+                            <li style="color: #000 !important;">Memperkuat reformasi birokrasi, mengoptimalkan tata kelola pemerintahan.</li>
+                            <li style="color: #000 !important;">Menjadikan desa mandiri yang mampu memanfaatkan potensi sumber daya alam dan sumber daya manusia yang tersedia.</li>
+                            <li style="color: #000 !important;">Meningkatkan pelestarian lingkungan serta peningkatan upaya penanggulangan mitigasi dan bencana.</li>
 
                         </ul>
                     </div>
