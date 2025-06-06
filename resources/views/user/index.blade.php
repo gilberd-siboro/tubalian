@@ -10,7 +10,7 @@
                     Tubalian <br>
                     Tapanuli Utara <br>
                     Bangga Lihat <br>
-                    Pertanian
+                    Pertaniannya
                 </h1>
                 <!-- <h2 class="mb-4">asdasd </h2> -->
             </div>

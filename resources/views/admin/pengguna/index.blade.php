@@ -130,7 +130,6 @@
                         @foreach($pegawai as $peg)
                         <option value="{{ $peg->idPegawai }}">{{ $peg->namaPegawai }}</option>
                         @endforeach
-
                     </select>
                 </div>
                 <div class="flex justify-end gap-2 mt-4">
