@@ -15,7 +15,7 @@
                 <!-- <h2 class="mb-4">asdasd </h2> -->
             </div>
             <div class="col-md-5 ftco-animate d-flex justify-content-center align-items-center">
-                <img src="images/logo.png" style="width:50% ;" alt="">
+                <img src="images/pimpinan.png" style="width:100% ;" alt="">
             </div>
         </div>
     </div>
