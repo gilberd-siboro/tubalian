@@ -45,6 +45,7 @@ class AuthController extends Controller
                 ->where('users.user_id', $user->user_id)
                 ->first();
 
+
             session(['userData' => $userData]);
 
             if ($userRole == 'Admin') {

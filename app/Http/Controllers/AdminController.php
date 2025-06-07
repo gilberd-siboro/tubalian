@@ -436,9 +436,8 @@ class AdminController extends Controller
         $existingJk = DB::select('CALL viewAll_jenisKomoditas()');
 
 
-        // Cek apakah dis_name sudah ada (case-insensitive)
         $isDuplicate = collect($existingJk)->contains(function ($item) use ($nama_jenis) {
-            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis) && $item->is_deleted == 1; // pastikan sesuaikan nama kolomnya
         });
 
         if ($isDuplicate) {
