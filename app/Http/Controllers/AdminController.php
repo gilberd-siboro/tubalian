@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -150,8 +150,27 @@ class AdminController extends Controller
 
     public function create_pengguna(Request $request)
     {
+
+        $username = $request->get('username');
+        $existingUsername = DB::select('CALL viewAll_Pengguna()');
+
+
+        $isDuplicate = collect($existingUsername)->contains(function ($item) use ($username) {
+            return strtolower($item->username) === strtolower($username) && $item->is_deleted == 0;
+        });
+
+
+        if ($isDuplicate) {
+            toast('Username sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
+
         $request->validate([
-            'username' => 'required|string|max:16',
+            'username' => [
+                'required',
+                'string',
+                'max:16',
+            ],
             'password' => [
                 'required',
                 'string',
@@ -163,6 +182,7 @@ class AdminController extends Controller
             'password.min' => 'Password harus memiliki minimal 8 karakter.',
             'password.regex' => 'Password harus mengandung setidaknya satu angka.',
         ]);
+    
 
         $Pengguna = json_encode([
             'Username' => $request->get('username'),
@@ -437,7 +457,7 @@ class AdminController extends Controller
 
 
         $isDuplicate = collect($existingJk)->contains(function ($item) use ($nama_jenis) {
-            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis) && $item->is_deleted == 0; // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -533,7 +553,7 @@ class AdminController extends Controller
         $existingKomoditas = DB::select('CALL viewAll_Komoditas()');
 
         $isDuplicate = collect($existingKomoditas)->contains(function ($item) use ($komoditas) {
-            return strtolower($item->nama_komoditas) === strtolower($komoditas); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_komoditas) === strtolower($komoditas) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -665,7 +685,7 @@ class AdminController extends Controller
         $existingJl = DB::select('CALL viewAll_jenisLahan()');
 
         $isDuplicate = collect($existingJl)->contains(function ($item) use ($jenis_lahan) {
-            return strtolower($item->nama_jenis_lahan) === strtolower($jenis_lahan); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_jenis_lahan) === strtolower($jenis_lahan) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -758,7 +778,7 @@ class AdminController extends Controller
         $existingLahan = DB::select('CALL viewAll_lahan()');
 
         $isDuplicate = collect($existingLahan)->contains(function ($item) use ($lahan) {
-            return strtolower($item->nama_lahan) === strtolower($lahan); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_lahan) === strtolower($lahan) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -854,7 +874,7 @@ class AdminController extends Controller
         $existingDep = DB::select('CALL viewAll_departemen()');
 
         $isDuplicate = collect($existingDep)->contains(function ($item) use ($departemen) {
-            return strtolower($item->namaDepartmen) === strtolower($departemen); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->namaDepartmen) === strtolower($departemen) && $item->isDeleted == 0;
         });
 
         if ($isDuplicate) {
@@ -953,7 +973,7 @@ class AdminController extends Controller
 
         // Cek apakah dis_name sudah ada (case-insensitive)
         $isDuplicate = collect($existingBidang)->contains(function ($item) use ($bidang) {
-            return strtolower($item->nama_bidang) === strtolower($bidang); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_bidang) === strtolower($bidang) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -1053,7 +1073,7 @@ class AdminController extends Controller
 
         // Cek apakah dis_name sudah ada (case-insensitive)
         $isDuplicate = collect($existingJabatan)->contains(function ($item) use ($jabatan) {
-            return strtolower($item->jabatan) === strtolower($jabatan); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->jabatan) === strtolower($jabatan) && $item->isDeleted == 0;
         });
 
         if ($isDuplicate) {
@@ -1150,7 +1170,7 @@ class AdminController extends Controller
 
 
         $isDuplicate = collect($existingJb)->contains(function ($item) use ($jabatan_bidang) {
-            return strtolower($item->namaJabatanBidang) === strtolower($jabatan_bidang); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->namaJabatanBidang) === strtolower($jabatan_bidang) && $item->isDeleted == 0;
         });
 
         if ($isDuplicate) {
@@ -1247,7 +1267,7 @@ class AdminController extends Controller
 
 
         $isDuplicate = collect($existingPangkat)->contains(function ($item) use ($pangkat) {
-            return strtolower($item->pangkat) === strtolower($pangkat); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->pangkat) === strtolower($pangkat) && $item->isDeleted == 0;
         });
 
         if ($isDuplicate) {
@@ -1723,7 +1743,7 @@ class AdminController extends Controller
         $existingPokTan = DB::select('CALL viewAll_kelompokTaniFull()');
 
         $isDuplicate = collect($existingPokTan)->contains(function ($item) use ($pokTan_name) {
-            return strtolower($item->nama_kelompok_tani) === strtolower($pokTan_name); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_kelompok_tani) === strtolower($pokTan_name) && $item->is_deleted == 0;
         });
 
         if ($isDuplicate) {
@@ -1909,7 +1929,7 @@ class AdminController extends Controller
 
         // Cek apakah dis_name sudah ada (case-insensitive)
         $isDuplicate = collect($existingPasar)->contains(function ($item) use ($pasar) {
-            return strtolower($item->nama_pasar) === strtolower($pasar); // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_pasar) === strtolower($pasar) && $item->isDeleted == 0;
         });
 
         if ($isDuplicate) {
