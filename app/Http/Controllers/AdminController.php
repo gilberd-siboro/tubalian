@@ -437,7 +437,7 @@ class AdminController extends Controller
 
 
         $isDuplicate = collect($existingJk)->contains(function ($item) use ($nama_jenis) {
-            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis) && $item->is_deleted == 1; // pastikan sesuaikan nama kolomnya
+            return strtolower($item->nama_jenis_komoditas) === strtolower($nama_jenis) && $item->is_deleted == 0; // pastikan sesuaikan nama kolomnya
         });
 
         if ($isDuplicate) {
