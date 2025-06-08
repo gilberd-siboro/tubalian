@@ -12,7 +12,7 @@ use App\Http\Controllers\PenyuluhController;
 
 Route::get('/', [UserController::class, 'index'])->name('home');
 Route::get('/tentang', [UserController::class, 'tentang']);
-Route::get('/berita', [UserController::class, 'news']);
+Route::get('/berita', [UserController::class, 'berita']);
 Route::get('/berita/{id}', [UserController::class, 'isiBerita'])->name('berita.isi');
 Route::get('/komoditas-kecamatan', [UserController::class, 'komoditas_kecamatan']);
 Route::get('/get-komoditas-kecamatan/{id}', [UserController::class, 'getKomoditasByKecamatan'])->name('komoditas.kecamatan');
