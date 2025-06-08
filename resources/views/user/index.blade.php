@@ -58,7 +58,6 @@
                             <li style="color: #000 !important;">Memperkuat reformasi birokrasi, mengoptimalkan tata kelola pemerintahan.</li>
                             <li style="color: #000 !important;">Menjadikan desa mandiri yang mampu memanfaatkan potensi sumber daya alam dan sumber daya manusia yang tersedia.</li>
                             <li style="color: #000 !important;">Meningkatkan pelestarian lingkungan serta peningkatan upaya penanggulangan mitigasi dan bencana.</li>
-
                         </ul>
                     </div>
                 </div>

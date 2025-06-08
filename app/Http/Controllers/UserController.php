@@ -8,16 +8,21 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
+    // --- Halaman Beranda --
     public function index()
     {
         $beritaAll = DB::select('CALL viewAll_beritaIndex()');
         $berita = array_slice($beritaAll, 0, 3);
         return view('user/index', compact('berita'));
     }
+    // -- Halaman Tentang --
     public function tentang()
     {
-        return view('user/tentang');
+        $berita = DB::select('CALL viewAll_beritaIndex()');
+        return view('user/tentang', compact('berita'));
     }
+
+    // Halaman Berita
     public function berita(Request $request)
     {
         $perPage = 5;
@@ -33,7 +38,7 @@ class UserController extends Controller
 
         return view('user/berita', compact('berita'));
     }
-
+    // --- ISI BERITA -------
     public function isiBerita($id)
     {
         $beritaData = DB::select('CALL view_beritaById(' . $id . ')');
@@ -41,7 +46,7 @@ class UserController extends Controller
 
         return view('user/isiberita', compact('berita'));
     }
-
+    // --- Komoditas KEcamatan
     public function komoditas_kecamatan()
     {
         $kecamatan = DB::select('CALL viewAll_kecamatan()');
@@ -79,7 +84,7 @@ class UserController extends Controller
         ]);
     }
 
-
+    // --- Persebaran Komoditas
     public function persebaran_komoditas()
     {
         $komoditas = DB::select('CALL viewAll_komoditas()');
@@ -114,7 +119,7 @@ class UserController extends Controller
         ]);
     }
 
-
+    // ---- HARGA ----
     public function harga()
     {
 
@@ -168,6 +173,8 @@ class UserController extends Controller
         // Mengembalikan data dalam format JSON
         return response()->json($data);
     }
+
+    // --- HALAMAN TREN HARGA --------
     public function tren()
     {
 

@@ -13,6 +13,7 @@ class AdminController extends Controller
 {
 
     //  --------------------- MENU -----------------------------
+
     public function admin()
     {
         $userData = session('userData');
@@ -1358,8 +1359,23 @@ class AdminController extends Controller
         return view('admin/pegawai/index', compact('totalData', 'userData', 'pegawai', 'golonganPangkat', 'jabatanBidang', 'desa'));
     }
 
+
     public function create_pegawai(Request $request)
     {
+        $cekNip = $request->get('nip');
+
+        // Ambil semua data pegawai
+        $existingPegawai = DB::select('CALL viewAll_pegawaiFull()');
+
+        // Cek apakah NIP sudah ada (case-insensitive)
+        $isDuplicate = collect($existingPegawai)->contains(function ($item) use ($cekNip) {
+            return strtolower($item->nip) === strtolower($cekNip); // pastikan sesuaikan nama kolomnya
+        });
+
+        if ($isDuplicate) {
+            toast('NIP sudah ada!', 'error')->autoClose(3000);
+            return redirect()->back()->withInput();
+        }
         // Validasi file foto
         $request->validate([
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
