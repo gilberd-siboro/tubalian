@@ -33,7 +33,7 @@
                     <img src="images/logo-dark.png" alt="" class="block h-6 mx-auto dark:hidden">
                 </a>
                 <div class="mt-8 text-center">
-                    <h4 class="mb-1 text-custom-500 dark:text-custom-500">Selamat Datang !!</h4>
+                    <h4 class="mb-1 text-custom-500 dark:text-custom-500">Selamat Datang\</h4>
                     <p class="text-slate-500 dark:text-zink-200">Masuk dan jelajahi data pertanian.</p>
                 </div>
 
@@ -72,11 +72,6 @@
                 <div class="mt-5">
                     <p class="mb-0 text-center text-15 text-slate-500 dark:text-zink-200">
                         Kembali ke halaman <a href="/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Beranda</a>
-                    </p>
-                    <p class=" mb-0 text-center text-15 text-slate-500 dark:text-zink-200">©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script> Dinas Pertanian. Crafted with <i class="text-red-500 ri-heart-fill"></i> by <a href="http://distan.taputkab.go.id/" class="underline transition-all duration-200 ease-linear text-slate-800 dark:text-zink-50 hover:text-custom-500">Dinas Pertanian</a>
                     </p>
                 </div>
             </div>

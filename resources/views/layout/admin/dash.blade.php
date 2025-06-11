@@ -299,33 +299,6 @@
         @endif
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script>
-            $(document).ready(function() {
-                $(document).on("click", ".deletecom", function(e) {
-                    e.preventDefault();
-                    var form = $(this).closest("form");
-                    Swal.fire({
-                        title: "Kamu Yakin?",
-                        text: "Ingin Menghapus Data ini!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Yes, hapus data!"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Data Berhasil di Hapus",
-                                icon: "success"
-                            }).then(() => {
-                                form.submit();
-                            });
-                        }
-                    });
-                });
-            });
-        </script>
 
 
 

@@ -23,41 +23,29 @@
         <table id="rowBorder" style="width:100%">
             <thead>
                 <tr>
-                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 ID">
-                        NO</th>
-                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 Name">
-                        Nama Pasar</th>
-                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 Name">
-                        Lokasi</th>
-                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-8 font-semibold border-b border-slate-200 dark:border-zink-500 Name" style="width: 0px">
-                        Action</th>
+                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 ID">NO</th>
+                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 Name">Nama Pasar</th>
+                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-5 font-semibold border-b border-slate-200 dark:border-zink-500 Name">Lokasi</th>
+                    <th class="px-3.5 py-2.5 first:pl-5 last:pr-8 font-semibold border-b border-slate-200 dark:border-zink-500 Name" style="width: 0px">Action</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 dark:divide-zink-500">
                 @foreach ($pasar as $p)
-
                 <tr>
                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 ID">
-                        <h6 class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600">
-                            {{ $loop->iteration }}
-
-                        </h6>
+                        <h6 class="transition-all duration-150 ease-linear text-custom-500 hover:text-custom-600">{{ $loop->iteration }}</h6>
                     </td>
-                    <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">
-                        {{ $p->nama_pasar }}
-                    </td>
-                    <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">
-                        {{ $p->subdis_name }}
-                    </td>
+                    <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">{{ $p->nama_pasar }}</td>
+                    <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Email">{{ $p->subdis_name }}</td>
                     <td class="px-3.5 py-2.5 first:pl-5 last:pr-5 border-y border-slate-200 dark:border-zink-500 Action">
                         <div class="flex gap-3">
-                            <a href="{{ route('pasar.edit', $p->id_pasar) }}" class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i data-lucide="pencil" class="size-4"></i></a>
-                            <form id="deleteForm_{{ $p->id_pasar }}" action="{{ route('pasar.delete', $p -> id_pasar)}}" method="POST">
+                            <a href="{{ route('pasar.edit', $p->id_pasar) }}" class="flex items-center justify-center transition-all duration-200 ease-linear rounded-md size-8 edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500">
+                                <i data-lucide="pencil" class="size-4"></i>
+                            </a>
+                            <form id="deleteForm_{{ $p->id_pasar }}" action="{{ route('pasar.delete', $p->id_pasar) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="toggle-status flex items-center justify-center text-white transition-all duration-200 ease-linear rounded-md size-8 hover:text-white 
-                                                    bg-red-500 ">
+                                <button type="submit" class="toggle-status flex items-center justify-center text-white transition-all duration-200 ease-linear rounded-md size-8 hover:text-white bg-red-500 delete-btn" data-id="{{ $p->id_pasar }}">
                                     <i data-lucide="trash-2" class="size-4"></i>
-
                                 </button>
                             </form>
                         </div>
@@ -312,4 +300,32 @@
         <button type="button" id="reset-layout" class="w-full transition-all duration-200 ease-linear text-slate-500 btn bg-slate-200 border-slate-200 hover:text-slate-600 hover:bg-slate-300 hover:border-slate-300 focus:text-slate-600 focus:bg-slate-300 focus:border-slate-300 focus:ring focus:ring-slate-100">Reset</button>
     </div>
 </div>
+
+<script>
+    // Menangani konfirmasi saat tombol delete ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            // Mendapatkan ID pasar dari atribut data-id
+            const idPasar = this.getAttribute('data-id');
+
+            // Menampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
+                    document.getElementById('deleteForm_' + idPasar).submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection

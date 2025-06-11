@@ -70,7 +70,7 @@
                             <form id="deleteForm_{{ $user->user_id }}" action="{{ route('pengguna.delete', $user -> user_id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="toggle-status flex items-center justify-center text-white transition-all duration-200 ease-linear rounded-md size-8 hover:text-white 
-                                                    bg-red-500 ">
+                                                    bg-red-500 delete-btn" data-id="{{ $user->user_id }}">
                                     <i data-lucide="trash-2" class="size-4"></i>
 
                                 </button>
@@ -360,6 +360,33 @@
         }
 
         document.getElementById('passwordError').textContent = errorText;
+    });
+
+
+    // Menangani konfirmasi saat tombol delete ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            // Mendapatkan ID pasar dari atribut data-id
+            const id = this.getAttribute('data-id');
+
+            // Menampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
+                    document.getElementById('deleteForm_' + id).submit();
+                }
+            });
+        });
     });
 </script>
 @endsection

@@ -64,7 +64,7 @@
                             <form id="deleteForm_{{ $kom->id_komoditas }}" action="{{ route('komoditas.delete', $kom -> id_komoditas)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="toggle-status flex items-center justify-center text-white transition-all duration-200 ease-linear rounded-md size-8 hover:text-white 
-                                                    bg-red-500 ">
+                                                    bg-red-500 delete-btn" data-id="{{ $kom->id_komoditas }}">
                                     <i data-lucide="trash-2" class="size-4"></i>
 
                                 </button>
@@ -102,20 +102,20 @@
                 <div class="grid grid-cols-1 gap-4 xl:grid-cols-12">
                     <div class="xl:col-span-12">
                         <label for="komoditas" class="inline-block mb-2 text-base font-medium">Komoditas</label>
-                        <input  type="text" required id="nama_komoditas" name="nama_komoditas" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Nama Komoditas">
+                        <input type="text" required id="nama_komoditas" name="nama_komoditas" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Nama Komoditas">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 gap-4 xl:grid-cols-12">
                     <div class="xl:col-span-12">
                         <label for="estimasi_panen" class="inline-block mb-2 text-base font-medium">Estimasi Panen</label>
-                        <input required type="text"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="estimasi_panen" name="estimasi_panen" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Hari">
+                        <input required type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="estimasi_panen" name="estimasi_panen" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="Hari">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 gap-4 xl:grid-cols-12">
                     <div class="xl:col-span-12">
                         <label for="gambar" class="inline-block mb-2 text-base font-medium">Gambar Komoditas</label>
                         <div>
-                            <input required type="file"  name="gambar" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
+                            <input required type="file" name="gambar" class="cursor-pointer form-file border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500" placeholder="Enter your name">
                         </div>
                     </div>
                 </div>
@@ -334,4 +334,32 @@
         <button type="button" id="reset-layout" class="w-full transition-all duration-200 ease-linear text-slate-500 btn bg-slate-200 border-slate-200 hover:text-slate-600 hover:bg-slate-300 hover:border-slate-300 focus:text-slate-600 focus:bg-slate-300 focus:border-slate-300 focus:ring focus:ring-slate-100">Reset</button>
     </div>
 </div>
+
+<script>
+    // Menangani konfirmasi saat tombol delete ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            // Mendapatkan ID pasar dari atribut data-id
+            const idKomoditas = this.getAttribute('data-id');
+
+            // Menampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
+                    document.getElementById('deleteForm_' + idKomoditas).submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection

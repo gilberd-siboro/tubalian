@@ -63,7 +63,7 @@
 
                     komoditasArray.forEach(item => {
                         let div = document.createElement('div');
-                        div.className = 'col-md-4';
+                        div.className = 'col-md-3';
                         div.setAttribute('data-kecamatan', item.dis_name);
                         div.innerHTML = `
                             <div class="project-wrap">

@@ -183,7 +183,7 @@ class AdminController extends Controller
             'password.min' => 'Password harus memiliki minimal 8 karakter.',
             'password.regex' => 'Password harus mengandung setidaknya satu angka.',
         ]);
-    
+
 
         $Pengguna = json_encode([
             'Username' => $request->get('username'),
@@ -208,14 +208,20 @@ class AdminController extends Controller
 
     public function delete_pengguna($id)
     {
-        $response = DB::statement('CALL delete_pengguna(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_pengguna(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Data Pertanian atau Berita';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('pengguna.index');
     }
 
@@ -520,12 +526,22 @@ class AdminController extends Controller
 
     public function delete_jenisKomoditas($id)
     {
-        $response = DB::statement('CALL delete_jenisKomoditas(?)', [$id]);
+        try {
+            // Panggil stored procedure untuk menghapus data pasar
+            $response = DB::statement('CALL delete_jenisKomoditas(?)', [$id]);
 
-        if ($response) {
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Cek apakah error yang dilempar terkait dengan foreign key constraint
+            if ($ex->getCode() === '45000') {
+                // Menampilkan hanya pesan error tanpa detail SQL dan connection
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Komoditas';
+
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                // Error lain, beri pesan yang lebih umum
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
         }
 
         return redirect()->route('jenisKomoditas.index');
@@ -657,12 +673,22 @@ class AdminController extends Controller
 
     public function delete_komoditas($id)
     {
-        $response = DB::statement('CALL delete_komoditas(?)', [$id]);
+        try {
+            // Panggil stored procedure untuk menghapus data pasar
+            $response = DB::statement('CALL delete_komoditas(?)', [$id]);
 
-        if ($response) {
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Cek apakah error yang dilempar terkait dengan foreign key constraint
+            if ($ex->getCode() === '45000') {
+                // Menampilkan hanya pesan error tanpa detail SQL dan connection
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Data Pertanian atau Harga Komoditas';
+
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                // Error lain, beri pesan yang lebih umum
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
         }
 
         return redirect()->route('komoditas.index');
@@ -749,12 +775,22 @@ class AdminController extends Controller
 
     public function delete_jenisLahan($id)
     {
-        $response = DB::statement('CALL delete_jenisLahan(?)', [$id]);
+        try {
+            // Panggil stored procedure untuk menghapus data pasar
+            $response = DB::statement('CALL delete_jenisLahan(?)', [$id]);
 
-        if ($response) {
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Cek apakah error yang dilempar terkait dengan foreign key constraint
+            if ($ex->getCode() === '45000') {
+                // Menampilkan hanya pesan error tanpa detail SQL dan connection
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Lahan';
+
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                // Error lain, beri pesan yang lebih umum
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
         }
 
         return redirect()->route('jenisLahan.index');
@@ -843,14 +879,20 @@ class AdminController extends Controller
 
     public function delete_lahan($id)
     {
-        $response = DB::statement('CALL delete_lahan(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_lahan(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Data Pertanian';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('lahan.index');
     }
 
@@ -941,14 +983,20 @@ class AdminController extends Controller
 
     public function delete_departemen($id)
     {
-        $response = DB::statement('CALL delete_departemen(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_departemen(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Bidang';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('departemen.index');
     }
 
@@ -1041,14 +1089,20 @@ class AdminController extends Controller
 
     public function delete_bidang($id)
     {
-        $response = DB::statement('CALL delete_bidang(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_bidang(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Jabatan Bidang';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('bidang.index');
     }
 
@@ -1138,14 +1192,20 @@ class AdminController extends Controller
 
     public function delete_jabatan($id)
     {
-        $response = DB::statement('CALL delete_jabatan(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_jabatan(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Jabatan Bidang';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('jabatan.index');
     }
 
@@ -1238,14 +1298,20 @@ class AdminController extends Controller
 
     public function delete_jabatanBidang($id)
     {
-        $response = DB::statement('CALL delete_jabatanBidang(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_jabatanBidang(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Pegawai atau Jabatan Petani';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('jabatanBidang.index');
     }
 
@@ -1334,14 +1400,20 @@ class AdminController extends Controller
 
     public function delete_golonganPangkat($id)
     {
-        $response = DB::statement('CALL delete_golonganPangkat(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_golonganPangkat(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Pegawai';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('golonganPangkat.index');
     }
 
@@ -1482,14 +1554,20 @@ class AdminController extends Controller
 
     public function delete_pegawai($id)
     {
-        $response = DB::statement('CALL delete_pegawai(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_pegawai(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Pengguna';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('pegawai.index');
     }
 
@@ -1827,14 +1905,20 @@ class AdminController extends Controller
 
     public function delete_kelompok_tani($id)
     {
-        $response = DB::statement('CALL delete_kelompokTani(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_kelompokTani(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Bantuan, Jabatan Petani atau Petani';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('kelompokTani.index');
     }
 
@@ -1912,14 +1996,20 @@ class AdminController extends Controller
 
     public function delete_petani($id)
     {
-        $response = DB::statement('CALL delete_petani(?)', [$id]);
+        try {
 
-        if ($response) {
+            $response = DB::statement('CALL delete_petani(?)', [$id]);
+
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
-        }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() === '45000') {
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Data Pertanian atau Jabatan Petani';
 
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
+        }
         return redirect()->route('petani.index');
     }
 
@@ -2009,15 +2099,24 @@ class AdminController extends Controller
             return redirect()->route('pasar.index');
         }
     }
-
     public function delete_pasar($id)
     {
-        $response = DB::statement('CALL delete_pasar(?)', [$id]);
+        try {
+            // Panggil stored procedure untuk menghapus data pasar
+            $response = DB::statement('CALL delete_pasar(?)', [$id]);
 
-        if ($response) {
             toast('Data berhasil dihapus!', 'success')->autoClose(3000);
-        } else {
-            toast('Data gagal dihapus!', 'error')->autoClose(3000);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Cek apakah error yang dilempar terkait dengan foreign key constraint
+            if ($ex->getCode() === '45000') {
+                // Menampilkan hanya pesan error tanpa detail SQL dan connection
+                $errorMessage = 'Gagal menghapus data! Masih digunakan di tabel Harga Komoditas';
+
+                toast($errorMessage, 'error')->autoClose(3000);
+            } else {
+                // Error lain, beri pesan yang lebih umum
+                toast('Terjadi kesalahan saat memproses permintaan. Silakan coba lagi.', 'error')->autoClose(3000);
+            }
         }
 
         return redirect()->route('pasar.index');

@@ -55,7 +55,7 @@
                             <form id="deleteForm_{{ $dep->idDepartemen }}" action="{{ route('departemen.delete', $dep -> idDepartemen)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="toggle-status flex items-center justify-center text-white transition-all duration-200 ease-linear rounded-md size-8 hover:text-white 
-                                                    bg-red-500 ">
+                                                    bg-red-500 delete-btn" data-id="{{ $dep->idDepartemen }}">
                                     <i data-lucide="trash-2" class="size-4"></i>
 
                                 </button>
@@ -309,4 +309,31 @@
         <button type="button" id="reset-layout" class="w-full transition-all duration-200 ease-linear text-slate-500 btn bg-slate-200 border-slate-200 hover:text-slate-600 hover:bg-slate-300 hover:border-slate-300 focus:text-slate-600 focus:bg-slate-300 focus:border-slate-300 focus:ring focus:ring-slate-100">Reset</button>
     </div>
 </div>
+<script>
+    // Menangani konfirmasi saat tombol delete ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            // Mendapatkan ID pasar dari atribut data-id
+            const id = this.getAttribute('data-id');
+
+            // Menampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
+                    document.getElementById('deleteForm_' + id).submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection
