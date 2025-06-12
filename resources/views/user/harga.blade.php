@@ -82,6 +82,7 @@
                                 <div class="text p-4">
                                     <h3><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
                                     <p class="location"><span class="fa fa-map-marker"></span> ${item.nama_pasar}, ${item.subdis_name}</p>
+
                                 </div>
                             </div>
                         `;

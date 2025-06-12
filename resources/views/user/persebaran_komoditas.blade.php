@@ -18,10 +18,18 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <!-- <input type="text" id="searchKomoditas" class="form-control mb-2" placeholder="Cari Komoditas..."> -->
-                <select id="filterKomoditas" class="form-control">
-                    <option value="all">Semua Komoditas</option>
-                    @foreach ($komoditas as $kom)
-                    <option value="{{ $kom->id_komoditas }}">{{ $kom->nama_komoditas }}</option>
+                <select id="filterKomoditas" class="form-control mb-2">
+                    <option value="all">-- Semua Komoditas --</option>
+                    @foreach ($komoditas as $k)
+                    <option value="{{ $k->id_komoditas }}">{{ $k->nama_komoditas }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="filterKecamatan" class="form-control mb-2">
+                    <option value="all">-- Semua Kecamatan --</option>
+                    @foreach ($kecamatan as $d)
+                    <option value="{{ $d->dis_id }}">{{ $d->dis_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -45,99 +53,108 @@
 </section>
 
 <script>
-    // document.getElementById('searchKomoditas').addEventListener('input', function() {
-    //     let filter = this.value.toLowerCase();
-    //     let dropdown = document.getElementById('filterKomoditas');
-    //     let options = dropdown.getElementsByTagName('option');
+    function fetchPersebaran(page = 1) {
+        const komoditasId = document.getElementById("filterKomoditas").value;
+        const kecamatanId = document.getElementById("filterKecamatan").value;
 
-    //     for (let i = 0; i < options.length; i++) {
-    //         let text = options[i].textContent.toLowerCase();
-    //         options[i].style.display = text.includes(filter) || options[i].value === "all" ? "block" : "none";
-    //     }
-    // });
+        const url = `/get-persebaran-komoditas-filter?komoditas=${encodeURIComponent(komoditasId)}&kecamatan=${encodeURIComponent(kecamatanId)}&page=${page}&timestamp=${Date.now()}`;
 
-
-    function fetchPersebaran(url) {
         const container = document.getElementById("persebaranContainer");
+        container.innerHTML = "<p>Memuat data...</p>";
 
-        fetch(url + '&timestamp=' + Date.now())
+        fetch(url)
             .then(res => res.json())
             .then(response => {
                 const data = response.data;
                 container.innerHTML = "";
 
                 if (!Array.isArray(data) || data.length === 0) {
-                    container.innerHTML = "<p>Tidak ada data.</p>";
+                    container.innerHTML = "<p>Tidak ada data yang ditemukan.</p>";
+                    document.getElementById("paginationContainer").innerHTML = "";
                     return;
                 }
 
                 data.forEach(item => {
                     const div = document.createElement('div');
                     div.className = "col-md-3";
-                    div.setAttribute('data-komoditas', item.nama_komoditas);
+
+                    const imageUrl = (item.gambar?.split(',')[0] || "default.png").trim();
+                    const lokasi = `${item.dis_name} - ${item.subdis_name}`;
 
                     div.innerHTML = `
-                    <div class="project-wrap">
-                    <a href="#" class="img" style="background-image:url('/assets/images/${item.url_gambar.split(',')[0]}'); pointer-events: none;   height: 200px !important;"></a>
-                        <div class="text p-4">
-                            <h3 style="font-size: 18px"><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
-                            <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}, ${item.dis_name}</p>
-                        </div>
-                    </div>
-                `;
-
+    <div class="project-wrap">
+        <a href="#" class="img" style="background-image:url('/assets/images/${imageUrl}'); pointer-events: none; height: 200px !important;"></a>
+        <div class="text p-4">
+            <h3 style="font-size: 18px">
+                <a style="pointer-events: none;" href="#">${item.nama_komoditas}</a>
+            </h3>
+            <p class="location mb-1">
+                <ul style="padding-left: 1rem;">
+                    ${item.info_kecamatan ? `<li style="font-size : 14px; "><span class="flaticon-map"></span> ${item.info_kecamatan}</li>` : ''}
+                    ${item.info_desa ? `<li style="font-size : 14px; "><span class="flaticon-route"></span> ${item.info_desa}</li>` : ''}
+                </ul>
+            </p>
+        </div>
+    </div>
+`;
                     container.appendChild(div);
                 });
-                generatePagination(response);
+
+                generatePagination(response.meta);
             })
-            .catch(err => {
-                console.error(err);
-                container.innerHTML = "<p>Error loading data.</p>";
+            .catch(error => {
+                container.innerHTML = "<p>Terjadi kesalahan saat mengambil data.</p>";
+                console.error("Fetch error:", error);
             });
     }
 
+    function generatePagination(meta) {
+        const paginationContainer = document.getElementById("paginationContainer");
+        if (!paginationContainer || !meta) return;
 
+        const {
+            current_page,
+            last_page
+        } = meta;
+        let html = '<ul>';
 
-    function generatePagination(pagination) {
-        const container = document.getElementById("paginationContainer");
-        container.innerHTML = "";
-
-        if (pagination.last_page <= 1) return;
-
-        const prevPage = pagination.current_page > 1 ? pagination.current_page - 1 : 1;
-        const nextPage = pagination.current_page < pagination.last_page ? pagination.current_page + 1 : pagination.last_page;
-
-        container.innerHTML += `<li><a href="#" data-page="${prevPage}">&lt;</a></li>`;
-
-        for (let i = 1; i <= pagination.last_page; i++) {
-            container.innerHTML += `
-            <li class="${i === pagination.current_page ? 'active' : ''}">
-                <a href="#" data-page="${i}">${i}</a>
-            </li>
-        `;
+        // Tombol Sebelumnya
+        if (current_page > 1) {
+            html += `<li><a href="javascript:void(0);" onclick="fetchPersebaran(${current_page - 1})">&lt;</a></li>`;
+        } else {
+            html += `<li><span style="opacity: 0.5;">&lt;</span></li>`;
         }
 
-        container.innerHTML += `<li><a href="#" data-page="${nextPage}">&gt;</a></li>`;
+        // Nomor halaman
+        for (let i = 1; i <= last_page; i++) {
+            if (i === current_page) {
+                html += `<li class="active"><span>${i}</span></li>`;
+            } else {
+                html += `<li><a href="javascript:void(0);" onclick="fetchPersebaran(${i})">${i}</a></li>`;
+            }
+        }
 
-        document.querySelectorAll('#paginationContainer a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const selectedPage = this.getAttribute('data-page');
-                const selectedId = document.getElementById("filterKomoditas").value;
-                fetchPersebaran(`/get-persebaran-komoditas/${encodeURIComponent(selectedId)}?page=${selectedPage}`);
-            });
-        });
+        // Tombol Berikutnya
+        if (current_page < last_page) {
+            html += `<li><a href="javascript:void(0);" onclick="fetchPersebaran(${current_page + 1})">&gt;</a></li>`;
+        } else {
+            html += `<li><span style="opacity: 0.5;">&gt;</span></li>`;
+        }
+
+        html += '</ul>';
+
+        paginationContainer.innerHTML = html;
     }
 
-    document.getElementById('filterKomoditas').addEventListener('change', function() {
-        const selectedId = this.value;
-        fetchPersebaran(`/get-persebaran-komoditas/${encodeURIComponent(selectedId)}?page=1`);
-    });
 
-    // Initial fetch on DOM load (optional if you want to auto-load first page of 'all')
+    document.getElementById("filterKomoditas").addEventListener("change", () => fetchPersebaran(1));
+    document.getElementById("filterKecamatan").addEventListener("change", () => fetchPersebaran(1));
+
     document.addEventListener('DOMContentLoaded', () => {
-        fetchPersebaran(`/get-persebaran-komoditas/all?page=1`);
+        fetchPersebaran();
     });
 </script>
+
+
 
 @endsection

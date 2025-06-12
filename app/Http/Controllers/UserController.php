@@ -88,21 +88,44 @@ class UserController extends Controller
     public function persebaran_komoditas()
     {
         $komoditas = DB::select('CALL viewAll_komoditas()');
-        return view('user.persebaran_komoditas', compact('komoditas'));
+        $kecamatan = DB::select('CALL viewAll_kecamatan()');
+
+        return view('user.persebaran_komoditas', compact('komoditas', 'kecamatan'));
     }
 
-    public function getPersebaranKomoditas(Request $request, $id)
+    public function getPersebaranKomoditas(Request $request)
     {
+        $komoditas = $request->query('komoditas');
+        $kecamatan = $request->query('kecamatan');
         $perPage = 8;
         $page = $request->query('page', 1);
 
-        if ($id === "all") {
-            $data = DB::select('CALL viewAll_persebaranKomoditas()');
-        } else {
-            $data = DB::select('CALL view_persebaranKomoditas(?)', [$id]);
+        // Jika 'all' atau kosong, set NULL agar stored procedure menangani "semua"
+        $komoditasParam = empty($komoditas) || $komoditas === 'all' ? null : $komoditas;
+        $kecamatanParam = empty($kecamatan) || $kecamatan === 'all' ? null : $kecamatan;
+
+        $data = DB::select('CALL view_persebarankomoditas(?, ?)', [
+            $komoditasParam,
+            $kecamatanParam
+        ]);
+
+        // Tambahkan informasi ringkasan wilayah
+        $districts = collect($data)->pluck('dis_name')->unique()->count();
+        $subdistricts = collect($data)->pluck('subdis_name')->unique()->count();
+        foreach ($data as &$item) {
+            if ($kecamatanParam) {
+                // Jika filter kecamatan dipilih, tampilkan hanya jumlah desa
+                $desaCount = collect($data)->pluck('subdis_name')->unique()->count();
+                $item->info_kecamatan = null;
+                $item->info_desa = "{$desaCount} desa";
+            } else {
+                // Jika tidak ada filter kecamatan, tampilkan semua
+                $item->info_kecamatan = "{$districts} Kecamatan";
+                $item->info_desa = "{$subdistricts} Desa";
+            }
         }
 
-        $paginator = new LengthAwarePaginator(
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
             array_slice($data, ($page - 1) * $perPage, $perPage),
             count($data),
             $perPage,
@@ -112,10 +135,12 @@ class UserController extends Controller
 
         return response()->json([
             'data' => $paginator->items(),
-            'current_page' => $paginator->currentPage(),
-            'last_page' => $paginator->lastPage(),
-            'total' => $paginator->total(),
-            'per_page' => $paginator->perPage()
+            'meta' => [
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage()
+            ]
         ]);
     }
 

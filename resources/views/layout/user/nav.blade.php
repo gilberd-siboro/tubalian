@@ -51,7 +51,7 @@
                             Data Pertanian
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item {{ \Request::is('komoditas-kecamatan') ? 'active' : '' }}" href="/komoditas-kecamatan">Komoditas Kecamatan</a>
+                            <!-- <a class="dropdown-item {{ \Request::is('komoditas-kecamatan') ? 'active' : '' }}" href="/komoditas-kecamatan">Komoditas Kecamatan</a> -->
                             <a class="dropdown-item {{ \Request::is('persebaran-komoditas') ? 'active' : '' }}" href="/persebaran-komoditas">Persebaran Komoditas</a>
                             <a class="dropdown-item {{ \Request::is('harga-komoditas') ? 'active' : '' }}" href="/harga-komoditas">Harga Komoditas</a>
                             <a class="dropdown-item {{ \Request::is('tren-harga') ? 'active' : '' }}" href="/tren-harga">Tren Harga</a>
