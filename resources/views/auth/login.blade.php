@@ -33,7 +33,7 @@
                     <img src="images/logo-dark.png" alt="" class="block h-6 mx-auto dark:hidden">
                 </a>
                 <div class="mt-8 text-center">
-                    <h4 class="mb-1 text-custom-500 dark:text-custom-500">Selamat Datang\</h4>
+                    <h4 class="mb-1 text-custom-500 dark:text-custom-500">Selamat Datang</h4>
                     <p class="text-slate-500 dark:text-zink-200">Masuk dan jelajahi data pertanian.</p>
                 </div>
 
