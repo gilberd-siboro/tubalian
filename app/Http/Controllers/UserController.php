@@ -113,16 +113,15 @@ class UserController extends Controller
         $districts = collect($data)->pluck('dis_name')->unique()->count();
         $subdistricts = collect($data)->pluck('subdis_name')->unique()->count();
         foreach ($data as &$item) {
-            if ($kecamatanParam) {
-                // Jika filter kecamatan dipilih, tampilkan hanya jumlah desa
-                $desaCount = collect($data)->pluck('subdis_name')->unique()->count();
-                $item->info_kecamatan = null;
-                $item->info_desa = "{$desaCount} desa";
-            } else {
-                // Jika tidak ada filter kecamatan, tampilkan semua
-                $item->info_kecamatan = "{$districts} Kecamatan";
-                $item->info_desa = "{$subdistricts} Desa";
-            }
+            // Ambil semua data yang punya komoditas_id sama
+            $related = collect($data)->where('komoditas_id', $item->komoditas_id);
+
+            // Hitung dis_name dan subdis_name unik
+            $districts = $related->pluck('dis_name')->unique()->count();
+            $subdistricts = $related->pluck('subdis_name')->unique()->count();
+
+            $item->info_kecamatan = "{$districts} Kecamatan";
+            $item->info_desa = "{$subdistricts} Desa";
         }
 
         $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
