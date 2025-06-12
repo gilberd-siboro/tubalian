@@ -318,6 +318,33 @@
         <button type="button" id="reset-layout" class="w-full transition-all duration-200 ease-linear text-slate-500 btn bg-slate-200 border-slate-200 hover:text-slate-600 hover:bg-slate-300 hover:border-slate-300 focus:text-slate-600 focus:bg-slate-300 focus:border-slate-300 focus:ring focus:ring-slate-100">Reset</button>
     </div>
 </div>
+<script>
+    // Menangani konfirmasi saat tombol delete ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            // Mendapatkan ID pasar dari atribut data-id
+            const id = this.getAttribute('data-id');
+
+            // Menampilkan SweetAlert konfirmasi
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
+                    document.getElementById('deleteForm_' + id).submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection
 
 <!-- Tambahkan script ini di bawah form/modal atau sebelum </body> -->
@@ -385,31 +412,5 @@
     // Event listener tombol penutup modal
     document.getElementById('close-modal')?.addEventListener('click', function() {
         document.getElementById('Tambah').classList.add('hidden');
-    });
-
-    // Menangani konfirmasi saat tombol delete ditekan
-    document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Mencegah pengiriman form langsung
-
-            // Mendapatkan ID pasar dari atribut data-id
-            const id = this.getAttribute('data-id');
-
-            // Menampilkan SweetAlert konfirmasi
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data ini akan dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Jika pengguna mengonfirmasi, kirim form untuk menghapus data
-                    document.getElementById('deleteForm_' + id).submit();
-                }
-            });
-        });
     });
 </script>
