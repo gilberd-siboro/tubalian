@@ -56,7 +56,7 @@ class UserController extends Controller
 
     public function getKomoditasByKecamatan(Request $request, $id)
     {
-        $perPage = 6; // Jumlah item per halaman
+        $perPage = 8; // Jumlah item per halaman
         $page = $request->query('page', 1); // Ambil parameter halaman dari request
 
         if ($id === "all") {
@@ -93,7 +93,7 @@ class UserController extends Controller
 
     public function getPersebaranKomoditas(Request $request, $id)
     {
-        $perPage = 6;
+        $perPage = 8;
         $page = $request->query('page', 1);
 
         if ($id === "all") {

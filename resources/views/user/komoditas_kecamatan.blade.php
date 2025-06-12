@@ -67,9 +67,10 @@
                         div.setAttribute('data-kecamatan', item.dis_name);
                         div.innerHTML = `
                             <div class="project-wrap">
-                                <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}'); pointer-events: none;"></a>
+                            <a href="#" class="img" style="background-image:url('/assets/images/${item.url_gambar.split(',')[0]}'); pointer-events: none;"></a>
+
                                 <div class="text p-4">
-                                    <h3><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
+                                    <h3 style="font-size: 18px"><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
                                     <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}</p>
                                 </div>
                             </div>

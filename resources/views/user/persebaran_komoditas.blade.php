@@ -73,14 +73,14 @@
 
                 data.forEach(item => {
                     const div = document.createElement('div');
-                    div.className = "col-md-4";
+                    div.className = "col-md-3";
                     div.setAttribute('data-komoditas', item.nama_komoditas);
 
                     div.innerHTML = `
                     <div class="project-wrap">
                         <a href="#" class="img" style="background-image:url('/assets/images/${item.gambar}'); pointer-events: none;"></a>
                         <div class="text p-4">
-                            <h3><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
+                            <h3 style="font-size: 18px"><a style="pointer-events: none;" href="#">${item.nama_komoditas}</a></h3>
                             <p class="location"><span class="fa fa-map-marker"></span> ${item.subdis_name}, ${item.dis_name}</p>
                         </div>
                     </div>
