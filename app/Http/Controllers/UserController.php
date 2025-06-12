@@ -100,30 +100,23 @@ class UserController extends Controller
         $perPage = 8;
         $page = $request->query('page', 1);
 
-        // Jika 'all' atau kosong, set NULL agar stored procedure menangani "semua"
+        // NULL untuk parameter 'all' atau kosong
         $komoditasParam = empty($komoditas) || $komoditas === 'all' ? null : $komoditas;
         $kecamatanParam = empty($kecamatan) || $kecamatan === 'all' ? null : $kecamatan;
 
-        $data = DB::select('CALL view_persebarankomoditas(?, ?)', [
+        // Panggil stored procedure
+        $data = DB::select('CALL view_persebaranKomoditas(?, ?)', [
             $komoditasParam,
             $kecamatanParam
         ]);
 
-        // Tambahkan informasi ringkasan wilayah
-        $districts = collect($data)->pluck('dis_name')->unique()->count();
-        $subdistricts = collect($data)->pluck('subdis_name')->unique()->count();
+        // Tambahkan informasi kecamatan dan desa (sudah ada di data, tinggal rename)
         foreach ($data as &$item) {
-            // Ambil semua data yang punya komoditas_id sama
-            $related = collect($data)->where('id_komoditas', $item->komoditas_id);
-
-            // Hitung dis_name dan subdis_name unik
-            $districts = $related->pluck('dis_name')->unique()->count();
-            $subdistricts = $related->pluck('subdis_name')->unique()->count();
-
-            $item->info_kecamatan = "{$districts} Kecamatan";
-            $item->info_desa = "{$subdistricts} Desa";
+            $item->info_kecamatan = "{$item->jumlah_kecamatan} Kecamatan";
+            $item->info_desa = "{$item->jumlah_desa} Desa";
         }
 
+        // Pagination manual
         $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
             array_slice($data, ($page - 1) * $perPage, $perPage),
             count($data),
@@ -142,6 +135,7 @@ class UserController extends Controller
             ]
         ]);
     }
+
 
     // ---- HARGA ----
     public function harga()
