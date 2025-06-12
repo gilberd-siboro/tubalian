@@ -76,7 +76,7 @@
                         div.setAttribute('data-pasar', item.nama_pasar);
                         div.innerHTML = `
                             <div class="project-wrap">
-                                <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}'); pointer-events: none;">
+                                <a href="#" class="img" style="background-image: url('/assets/images/${item.gambar}'); pointer-events: none;  height: 200px !important;">
                                     <span class="price">${formatter.format(item.harga)}/kg</span>
                                 </a>
                                 <div class="text p-4">
