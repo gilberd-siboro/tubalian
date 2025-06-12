@@ -114,7 +114,7 @@ class UserController extends Controller
         $subdistricts = collect($data)->pluck('subdis_name')->unique()->count();
         foreach ($data as &$item) {
             // Ambil semua data yang punya komoditas_id sama
-            $related = collect($data)->where('komoditas_id', $item->komoditas_id);
+            $related = collect($data)->where('id_komoditas', $item->komoditas_id);
 
             // Hitung dis_name dan subdis_name unik
             $districts = $related->pluck('dis_name')->unique()->count();
