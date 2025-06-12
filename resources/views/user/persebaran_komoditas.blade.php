@@ -17,7 +17,7 @@
 
         <div class="row mb-4">
             <div class="col-md-4">
-                <input type="text" id="searchKomoditas" class="form-control mb-2" placeholder="Cari Komoditas...">
+                <!-- <input type="text" id="searchKomoditas" class="form-control mb-2" placeholder="Cari Komoditas..."> -->
                 <select id="filterKomoditas" class="form-control">
                     <option value="all">Semua Komoditas</option>
                     @foreach ($komoditas as $kom)
@@ -45,16 +45,16 @@
 </section>
 
 <script>
-    document.getElementById('searchKomoditas').addEventListener('input', function() {
-        let filter = this.value.toLowerCase();
-        let dropdown = document.getElementById('filterKomoditas');
-        let options = dropdown.getElementsByTagName('option');
+    // document.getElementById('searchKomoditas').addEventListener('input', function() {
+    //     let filter = this.value.toLowerCase();
+    //     let dropdown = document.getElementById('filterKomoditas');
+    //     let options = dropdown.getElementsByTagName('option');
 
-        for (let i = 0; i < options.length; i++) {
-            let text = options[i].textContent.toLowerCase();
-            options[i].style.display = text.includes(filter) || options[i].value === "all" ? "block" : "none";
-        }
-    });
+    //     for (let i = 0; i < options.length; i++) {
+    //         let text = options[i].textContent.toLowerCase();
+    //         options[i].style.display = text.includes(filter) || options[i].value === "all" ? "block" : "none";
+    //     }
+    // });
 
 
     function fetchPersebaran(url) {
