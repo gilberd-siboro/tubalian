@@ -56,13 +56,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="komoditasModalLabel">Detail Persebaran Komoditas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 1.5rem;">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p id="modalDisName">Kecamatan: Loading...</p>
-                <p id="modalSubdisName">Desa: Loading...</p>
+                <div id="modalGroupedData">
+                    Loading data...
+                </div>
             </div>
         </div>
     </div>
@@ -133,22 +134,39 @@
             .then(res => res.json())
             .then(response => {
                 const data = response.data;
-                if (data && data.length > 0) {
-                    const kecamatan = data[0].dis_name;
-                    const desa = data[0].subdis_name;
+                const modalGroupedData = document.getElementById('modalGroupedData');
 
-                    // Set modal content
-                    document.getElementById('modalDisName').textContent = `Kecamatan ${kecamatan}`;
-                    document.getElementById('modalSubdisName').textContent = `• Desa ${desa}`;
+                if (data && data.length > 0) {
+                    // Group desa by kecamatan (dis_name)
+                    const kecamatanMap = {};
+
+                    data.forEach(item => {
+                        if (!kecamatanMap[item.dis_name]) {
+                            kecamatanMap[item.dis_name] = new Set();
+                        }
+                        kecamatanMap[item.dis_name].add(item.subdis_name);
+                    });
+
+                    // Build HTML for grouped kecamatan and desa
+                    let html = '';
+
+                    for (const kecamatan in kecamatanMap) {
+                        html += `<p><strong>Kecamatan ${kecamatan}</strong></p><ul>`;
+                        kecamatanMap[kecamatan].forEach(desa => {
+                            html += `<li style="color: #000;" >Desa ${desa}</li>`;
+                        });
+                        html += `</ul>`;
+                    }
+
+                    modalGroupedData.innerHTML = html;
                 } else {
-                    document.getElementById('modalDisName').textContent = "Kecamatan: Tidak ditemukan";
-                    document.getElementById('modalSubdisName').textContent = "Desa: Tidak ditemukan";
+                    modalGroupedData.textContent = "Data tidak ditemukan.";
                 }
             })
             .catch(error => {
                 console.error("Error fetching detail:", error);
-                document.getElementById('modalDisName').textContent = "Kecamatan: Error loading data";
-                document.getElementById('modalSubdisName').textContent = "Desa: Error loading data";
+                const modalGroupedData = document.getElementById('modalGroupedData');
+                modalGroupedData.textContent = "Error loading data.";
             });
     }
 
@@ -162,14 +180,14 @@
         } = meta;
         let html = '<ul>';
 
-        // Tombol Sebelumnya
+        // Previous button
         if (current_page > 1) {
             html += `<li><a href="javascript:void(0);" onclick="fetchPersebaran(${current_page - 1})">&lt;</a></li>`;
         } else {
             html += `<li><span style="opacity: 0.5;">&lt;</span></li>`;
         }
 
-        // Nomor halaman
+        // Page numbers
         for (let i = 1; i <= last_page; i++) {
             if (i === current_page) {
                 html += `<li class="active"><span>${i}</span></li>`;
@@ -178,7 +196,7 @@
             }
         }
 
-        // Tombol Berikutnya
+        // Next button
         if (current_page < last_page) {
             html += `<li><a href="javascript:void(0);" onclick="fetchPersebaran(${current_page + 1})">&gt;</a></li>`;
         } else {
