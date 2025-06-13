@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 12/06/2025 15:47:17
+ Date: 13/06/2025 16:22:01
 */
 
 SET NAMES utf8mb4;
@@ -163,8 +163,8 @@ INSERT INTO `data_pertanian` VALUES (2, 1, 1, 7, 1000.00, 1, '06 Mar, 2025', '20
 INSERT INTO `data_pertanian` VALUES (3, 7, 1, 7, 12000.00, 15, '03 Apr, 2025', '04 Apr, 2025', 1, 'Silando', NULL, NULL, NULL, '2025-05-08 08:55:32', 0);
 INSERT INTO `data_pertanian` VALUES (4, 8, 3, 5, 1000.00, 16, '12 Feb, 2025', '04 Apr, 2025', 1, 'Batu Binumbun', NULL, NULL, NULL, '2025-05-08 09:26:28', 0);
 INSERT INTO `data_pertanian` VALUES (5, 9, 2, 6, 1234.00, 17, '02 Apr, 2025', '04 Apr, 2025', 1, 'Simanampang', '0.0260853762749248', '-0.02898091594215613', NULL, '2025-05-10 18:08:42', 0);
-INSERT INTO `data_pertanian` VALUES (14, 2, 3, 3, 12312.00, 2, '07 May, 2025', '05 May, 2025', 1, 'Hapoltahan', 'null', 'null', '2025-05-08 09:48:51', '2025-05-10 12:31:32', 0);
-INSERT INTO `data_pertanian` VALUES (22, 1, 1, 3, 123.00, 15, '20 May, 2025', '27 May, 2025', 1, 'asd', '2.0308136798895253', '98.96454773662681', '2025-05-11 11:05:40', NULL, 0);
+INSERT INTO `data_pertanian` VALUES (14, 2, 3, 10, 12312.00, 2, '07 May, 2025', '05 May, 2025', 1, 'Hapoltahan', 'null', 'null', '2025-05-08 09:48:51', '2025-06-12 20:52:42', 0);
+INSERT INTO `data_pertanian` VALUES (22, 1, 1, 10, 123.00, 15, '20 May, 2025', '27 May, 2025', 1, 'asd', '2.0308136798895253', '98.96454773662681', '2025-05-11 11:05:40', '2025-06-12 20:53:14', 0);
 
 -- ----------------------------
 -- Table structure for departemen
@@ -480,7 +480,7 @@ CREATE TABLE `komoditas`  (
   PRIMARY KEY (`id_komoditas`) USING BTREE,
   INDEX `id_jenis_komoditas`(`id_jenis_komoditas` ASC) USING BTREE,
   CONSTRAINT `komoditas_ibfk_1` FOREIGN KEY (`id_jenis_komoditas`) REFERENCES `jenis_komoditas` (`id_jenis_komoditas`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of komoditas
@@ -493,6 +493,7 @@ INSERT INTO `komoditas` VALUES (6, 'Kakao', 5, '180', 'kakao.jpeg', '2025-04-04 
 INSERT INTO `komoditas` VALUES (7, 'Padi', 1, '151', '1743748199_padi.jpg', '2025-04-04 13:29:59', '2025-04-04 13:33:05', 1);
 INSERT INTO `komoditas` VALUES (8, 'asd', 1, '123', '1746583682_asd.jpg', '2025-05-07 09:08:02', '2025-05-10 17:13:27', 1);
 INSERT INTO `komoditas` VALUES (9, 'asdasd', 1, '123', '1748833635_1746586032_harga.jpg', '2025-06-02 10:07:15', NULL, 1);
+INSERT INTO `komoditas` VALUES (10, 'Jagung', 10, '120', '1749736341_padi_volwin2.jpeg', '2025-06-12 20:52:21', NULL, 0);
 
 -- ----------------------------
 -- Table structure for lahan
@@ -2894,28 +2895,28 @@ DROP PROCEDURE IF EXISTS `viewAll_persebaranKomoditas`;
 delimiter ;;
 CREATE PROCEDURE `viewAll_persebaranKomoditas`()
 BEGIN
-SELECT
-    districts.dis_name, 
-    subdistricts.subdis_name, 
-    komoditas.id_komoditas, 
-    komoditas.gambar, 
-    komoditas.nama_komoditas, 
-    GROUP_CONCAT(gambar_lahan.url_gambar) AS url_gambar
-FROM
-    districts
-    INNER JOIN subdistricts ON districts.dis_id = subdistricts.dis_id
-    INNER JOIN data_pertanian ON subdistricts.subdis_id = data_pertanian.subdis_id
-    INNER JOIN komoditas ON data_pertanian.id_komoditas = komoditas.id_komoditas
-    INNER JOIN gambar_lahan ON data_pertanian.id_data_pertanian = gambar_lahan.id_data_pertanian
-WHERE
-    data_pertanian.is_deleted = 0
-GROUP BY
-    districts.dis_name, 
-    subdistricts.subdis_name, 
-    komoditas.id_komoditas, 
-    komoditas.gambar, 
-    komoditas.nama_komoditas, 
-    districts.dis_id;	
+    SELECT
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        GROUP_CONCAT(gambar_lahan.url_gambar) AS url_gambar
+    FROM
+        districts
+        INNER JOIN subdistricts ON districts.dis_id = subdistricts.dis_id
+        INNER JOIN data_pertanian ON subdistricts.subdis_id = data_pertanian.subdis_id
+        INNER JOIN komoditas ON data_pertanian.id_komoditas = komoditas.id_komoditas
+        INNER JOIN gambar_lahan ON data_pertanian.id_data_pertanian = gambar_lahan.id_data_pertanian
+    WHERE
+        data_pertanian.is_deleted = 0
+    GROUP BY
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        districts.dis_id;
 END
 ;;
 delimiter ;
@@ -3182,6 +3183,30 @@ BEGIN
 	WHERE
 		subdistricts.subdis_id = id;
 	
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for view_detailPersebaran
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `view_detailPersebaran`;
+delimiter ;;
+CREATE PROCEDURE `view_detailPersebaran`(IN komoditasId INT, IN disId INT)
+BEGIN
+    SELECT
+        d.dis_name,
+        s.subdis_name
+    FROM
+        data_pertanian dp
+        JOIN subdistricts s ON dp.subdis_id = s.subdis_id
+        JOIN districts d ON s.dis_id = d.dis_id
+    WHERE
+        dp.is_deleted = 0
+        AND dp.id_komoditas = komoditasId
+        AND (d.dis_id = disId OR disId = 0)  -- This ensures that if disId is 0, it fetches all districts
+    GROUP BY
+        d.dis_name, s.subdis_name;
 END
 ;;
 delimiter ;
@@ -3597,32 +3622,97 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `view_persebaranKomoditas`;
 delimiter ;;
-CREATE PROCEDURE `view_persebaranKomoditas`(IN id INT)
+CREATE PROCEDURE `view_persebaranKomoditas`(IN komoditasId INT,
+    IN kecamatanId INT)
 BEGIN
-SELECT
-    districts.dis_name, 
-    subdistricts.subdis_name, 
-    komoditas.id_komoditas, 
-    komoditas.gambar, 
-    komoditas.nama_komoditas, 
-    GROUP_CONCAT(gambar_lahan.url_gambar) AS url_gambar
-FROM
-    districts
-    INNER JOIN subdistricts ON districts.dis_id = subdistricts.dis_id
-    INNER JOIN data_pertanian ON subdistricts.subdis_id = data_pertanian.subdis_id
-    INNER JOIN komoditas ON data_pertanian.id_komoditas = komoditas.id_komoditas
-    INNER JOIN gambar_lahan ON data_pertanian.id_data_pertanian = gambar_lahan.id_data_pertanian
-WHERE
-    data_pertanian.is_deleted = 0
-		AND komoditas.id_komoditas = id
-GROUP BY
-    districts.dis_name, 
-    subdistricts.subdis_name, 
-    komoditas.id_komoditas, 
-    komoditas.gambar, 
-    komoditas.nama_komoditas, 
-    districts.dis_id;	
-	
+    SELECT
+        k.id_komoditas,
+        k.nama_komoditas,
+        k.gambar,
+        COUNT(DISTINCT d.dis_id) AS jumlah_kecamatan,
+        COUNT(DISTINCT s.subdis_id) AS jumlah_desa,
+        GROUP_CONCAT(DISTINCT gl.url_gambar) AS url_gambar
+    FROM
+        data_pertanian dp
+        JOIN komoditas k ON dp.id_komoditas = k.id_komoditas
+        JOIN subdistricts s ON dp.subdis_id = s.subdis_id
+        JOIN districts d ON s.dis_id = d.dis_id
+        LEFT JOIN gambar_lahan gl ON dp.id_data_pertanian = gl.id_data_pertanian
+    WHERE
+        dp.is_deleted = 0
+        AND (komoditasId IS NULL OR dp.id_komoditas = komoditasId)
+        AND (kecamatanId IS NULL OR d.dis_id = kecamatanId)
+    GROUP BY
+        k.id_komoditas, k.nama_komoditas, k.gambar;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for view_persebaran_by_kecamatan
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `view_persebaran_by_kecamatan`;
+delimiter ;;
+CREATE PROCEDURE `view_persebaran_by_kecamatan`(IN kecamatan_id INT)
+BEGIN
+    SELECT
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        GROUP_CONCAT(gambar_lahan.url_gambar) AS url_gambar
+    FROM
+        districts
+        INNER JOIN subdistricts ON districts.dis_id = subdistricts.dis_id
+        INNER JOIN data_pertanian ON subdistricts.subdis_id = data_pertanian.subdis_id
+        INNER JOIN komoditas ON data_pertanian.id_komoditas = komoditas.id_komoditas
+        INNER JOIN gambar_lahan ON data_pertanian.id_data_pertanian = gambar_lahan.id_data_pertanian
+    WHERE
+        data_pertanian.is_deleted = 0
+        AND districts.dis_id = kecamatan_id
+    GROUP BY
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        districts.dis_id;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for view_persebaran_by_komoditas_dan_kecamatan
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `view_persebaran_by_komoditas_dan_kecamatan`;
+delimiter ;;
+CREATE PROCEDURE `view_persebaran_by_komoditas_dan_kecamatan`(IN komoditas_id INT, IN kecamatan_id INT)
+BEGIN
+    SELECT
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        GROUP_CONCAT(gambar_lahan.url_gambar) AS url_gambar
+    FROM
+        districts
+        INNER JOIN subdistricts ON districts.dis_id = subdistricts.dis_id
+        INNER JOIN data_pertanian ON subdistricts.subdis_id = data_pertanian.subdis_id
+        INNER JOIN komoditas ON data_pertanian.id_komoditas = komoditas.id_komoditas
+        INNER JOIN gambar_lahan ON data_pertanian.id_data_pertanian = gambar_lahan.id_data_pertanian
+    WHERE
+        data_pertanian.is_deleted = 0
+        AND komoditas.id_komoditas = komoditas_id
+        AND districts.dis_id = kecamatan_id
+    GROUP BY
+        districts.dis_name, 
+        subdistricts.subdis_name, 
+        komoditas.id_komoditas, 
+        komoditas.gambar, 
+        komoditas.nama_komoditas, 
+        districts.dis_id;
 END
 ;;
 delimiter ;
