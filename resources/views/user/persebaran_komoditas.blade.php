@@ -68,6 +68,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function fetchPersebaran(page = 1) {
         const komoditasId = document.getElementById("filterKomoditas").value;
@@ -98,22 +99,22 @@
                     const lokasi = `${item.dis_name} - ${item.subdis_name}`;
 
                     div.innerHTML = `
-    <div class="project-wrap">
-        <a href="javascript:void(0);" class="img" style="background-image:url('/assets/images/${item.gambar}'); height: 200px !important;" onclick="openModal(${item.id_komoditas})">
-        </a>
-        <div class="text p-4">
-            <h3 style="font-size: 18px">
-                <a style="pointer-events: none;" href="#">${item.nama_komoditas}</a>
-            </h3>
-            <p class="location mb-1">
-                <ul style="padding-left: 1rem;">
-                    ${item.info_kecamatan ? `<li style="font-size: 14px;"><span class="flaticon-map"></span> ${item.info_kecamatan}</li>` : ''}
-                    ${item.info_desa ? `<li style="font-size: 14px;"><span class="flaticon-route"></span> ${item.info_desa}</li>` : ''}
-                </ul>
-            </p>
-        </div>
-    </div>
-`;
+                        <div class="project-wrap">
+                            <a href="javascript:void(0);" class="img" style="background-image:url('/assets/images/${item.gambar}'); height: 200px !important;" onclick="openModal(${item.id_komoditas})">
+                            </a>
+                            <div class="text p-4">
+                                <h3 style="font-size: 18px">
+                                    <a style="pointer-events: none;" href="#">${item.nama_komoditas}</a>
+                                </h3>
+                                <p class="location mb-1">
+                                    <ul style="padding-left: 1rem;">
+                                        ${item.info_kecamatan ? `<li style="font-size: 14px;"><span class="flaticon-map"></span> ${item.info_kecamatan}</li>` : ''}
+                                        ${item.info_desa ? `<li style="font-size: 14px;"><span class="flaticon-route"></span> ${item.info_desa}</li>` : ''}
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    `;
                     container.appendChild(div);
                 });
 
@@ -126,18 +127,31 @@
     }
 
     function openModal(komoditasId) {
+        // Ambil dis_id yang dipilih dari filter
+        const selectedKecamatanId = document.getElementById("filterKecamatan").value;
+
+        // If the selected kecamatan is "all", set dis_id to 0
+        const disId = (selectedKecamatanId === "all") ? 0 : selectedKecamatanId;
+
         // Show modal
         $('#komoditasModal').modal('show');
 
-        // Fetch detail from the server
-        fetch(`/getDetailKomoditas?id_komoditas=${komoditasId}`)
+        // Debugging: Log the values being sent
+        console.log('Komoditas ID:', komoditasId);
+        console.log('Dis ID:', disId);
+
+        // Fetch detail dari server dengan komoditasId dan dis_id
+        fetch(`/getDetailKomoditas?id_komoditas=${komoditasId}&dis_id=${disId}`)
             .then(res => res.json())
             .then(response => {
+                console.log('Response from server:', response); // Add this line for debugging
                 const data = response.data;
                 const modalGroupedData = document.getElementById('modalGroupedData');
 
                 if (data && data.length > 0) {
-                    // Group desa by kecamatan (dis_name)
+                    let html = '';
+
+                    // Group data by kecamatan
                     const kecamatanMap = {};
 
                     data.forEach(item => {
@@ -147,18 +161,16 @@
                         kecamatanMap[item.dis_name].add(item.subdis_name);
                     });
 
-                    // Build HTML for grouped kecamatan and desa
-                    let html = '';
-
+                    // Create HTML output based on grouped data
                     for (const kecamatan in kecamatanMap) {
-                        html += `<p><strong>Kecamatan ${kecamatan}</strong></p><ul>`;
+                        html += `<p><strong>${kecamatan}</strong></p><ul>`;
                         kecamatanMap[kecamatan].forEach(desa => {
-                            html += `<li style="color: #000;" >Desa ${desa}</li>`;
+                            html += `<li>${desa}</li>`;
                         });
                         html += `</ul>`;
                     }
 
-                    modalGroupedData.innerHTML = html;
+                    modalGroupedData.innerHTML = html || "Data tidak ditemukan.";
                 } else {
                     modalGroupedData.textContent = "Data tidak ditemukan.";
                 }
@@ -168,7 +180,11 @@
                 const modalGroupedData = document.getElementById('modalGroupedData');
                 modalGroupedData.textContent = "Error loading data.";
             });
+
     }
+
+
+
 
     function generatePagination(meta) {
         const paginationContainer = document.getElementById("paginationContainer");

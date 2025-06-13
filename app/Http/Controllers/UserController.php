@@ -139,14 +139,15 @@ class UserController extends Controller
     public function getDetailKomoditas(Request $request)
     {
         $komoditasId = $request->query('id_komoditas');
-    
+        $disId = $request->query('dis_id', 0);  // Defaultnya 0 jika tidak ada dis_id yang dipilih
+
         if (!$komoditasId) {
             return response()->json(['error' => 'Komoditas ID is required'], 400);
         }
-    
-        // Panggil stored procedure untuk mengambil detail
-        $data = DB::select('CALL view_detailPersebaran(?)', [$komoditasId]);
-    
+
+        // Panggil stored procedure untuk mengambil detail berdasarkan komoditas dan dis_id
+        $data = DB::select('CALL view_detailPersebaran(?, ?)', [$komoditasId, $disId]);
+
         return response()->json([
             'data' => $data
         ]);
