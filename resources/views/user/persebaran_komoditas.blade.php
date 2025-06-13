@@ -14,10 +14,8 @@
 
 <section class="ftco-section">
     <div class="container">
-
         <div class="row mb-4">
             <div class="col-md-4">
-                <!-- <input type="text" id="searchKomoditas" class="form-control mb-2" placeholder="Cari Komoditas..."> -->
                 <select id="filterKomoditas" class="form-control mb-2">
                     <option value="all">-- Semua Komoditas --</option>
                     @foreach ($komoditas as $k)
@@ -36,7 +34,7 @@
         </div>
 
         <div class="row" id="persebaranContainer">
-            {{-- Data Persebaran Komodiatas --}}
+            {{-- Data Persebaran Komoditas --}}
         </div>
 
         <div class="row mt-5 mb-5">
@@ -52,6 +50,23 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div class="modal fade" id="komoditasModal" tabindex="-1" role="dialog" aria-labelledby="komoditasModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="komoditasModalLabel">Detail Persebaran Komoditas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDisName">Kecamatan: Loading...</p>
+                <p id="modalSubdisName">Desa: Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function fetchPersebaran(page = 1) {
         const komoditasId = document.getElementById("filterKomoditas").value;
@@ -83,15 +98,16 @@
 
                     div.innerHTML = `
     <div class="project-wrap">
-        <a href="#" class="img" style="background-image:url('/assets/images/${imageUrl}'); pointer-events: none; height: 200px !important;"></a>
+        <a href="javascript:void(0);" class="img" style="background-image:url('/assets/images/${item.gambar}'); height: 200px !important;" onclick="openModal(${item.id_komoditas})">
+        </a>
         <div class="text p-4">
             <h3 style="font-size: 18px">
                 <a style="pointer-events: none;" href="#">${item.nama_komoditas}</a>
             </h3>
             <p class="location mb-1">
                 <ul style="padding-left: 1rem;">
-                    ${item.info_kecamatan ? `<li style="font-size : 14px; "><span class="flaticon-map"></span> ${item.info_kecamatan}</li>` : ''}
-                    ${item.info_desa ? `<li style="font-size : 14px; "><span class="flaticon-route"></span> ${item.info_desa}</li>` : ''}
+                    ${item.info_kecamatan ? `<li style="font-size: 14px;"><span class="flaticon-map"></span> ${item.info_kecamatan}</li>` : ''}
+                    ${item.info_desa ? `<li style="font-size: 14px;"><span class="flaticon-route"></span> ${item.info_desa}</li>` : ''}
                 </ul>
             </p>
         </div>
@@ -105,6 +121,34 @@
             .catch(error => {
                 container.innerHTML = "<p>Terjadi kesalahan saat mengambil data.</p>";
                 console.error("Fetch error:", error);
+            });
+    }
+
+    function openModal(komoditasId) {
+        // Show modal
+        $('#komoditasModal').modal('show');
+
+        // Fetch detail from the server
+        fetch(`/getDetailKomoditas?id_komoditas=${komoditasId}`)
+            .then(res => res.json())
+            .then(response => {
+                const data = response.data;
+                if (data && data.length > 0) {
+                    const kecamatan = data[0].dis_name;
+                    const desa = data[0].subdis_name;
+
+                    // Set modal content
+                    document.getElementById('modalDisName').textContent = `Kecamatan ${kecamatan}`;
+                    document.getElementById('modalSubdisName').textContent = `• Desa ${desa}`;
+                } else {
+                    document.getElementById('modalDisName').textContent = "Kecamatan: Tidak ditemukan";
+                    document.getElementById('modalSubdisName').textContent = "Desa: Tidak ditemukan";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching detail:", error);
+                document.getElementById('modalDisName').textContent = "Kecamatan: Error loading data";
+                document.getElementById('modalSubdisName').textContent = "Desa: Error loading data";
             });
     }
 
@@ -146,7 +190,6 @@
         paginationContainer.innerHTML = html;
     }
 
-
     document.getElementById("filterKomoditas").addEventListener("change", () => fetchPersebaran(1));
     document.getElementById("filterKecamatan").addEventListener("change", () => fetchPersebaran(1));
 
@@ -154,7 +197,5 @@
         fetchPersebaran();
     });
 </script>
-
-
 
 @endsection

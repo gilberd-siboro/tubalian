@@ -136,6 +136,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function getDetailKomoditas(Request $request)
+    {
+        $komoditasId = $request->query('id_komoditas');
+    
+        if (!$komoditasId) {
+            return response()->json(['error' => 'Komoditas ID is required'], 400);
+        }
+    
+        // Panggil stored procedure untuk mengambil detail
+        $data = DB::select('CALL view_detailPersebaran(?)', [$komoditasId]);
+    
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
 
     // ---- HARGA ----
     public function harga()
